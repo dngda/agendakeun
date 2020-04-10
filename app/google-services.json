@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "184531547133",
+    "firebase_url": "https://agendakeun-uny.firebaseio.com",
+    "project_id": "agendakeun-uny",
+    "storage_bucket": "agendakeun-uny.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184531547133:android:eaa1e8a859fb2235881f94",
+        "android_client_info": {
+          "package_name": "com.airmineral.agendakeun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184531547133-7ffcagu98rge6kla1jtnkd2442g226el.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.airmineral.agendakeun",
+            "certificate_hash": "669036deec1450300b5c741a6db0884f763cb8ec"
+          }
+        },
+        {
+          "client_id": "184531547133-3nara4jng21tbbn3idhi0t2nod77ungm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6DW1pa7qQofObvk6khdxvwi1WzaftIa0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184531547133-3nara4jng21tbbn3idhi0t2nod77ungm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
