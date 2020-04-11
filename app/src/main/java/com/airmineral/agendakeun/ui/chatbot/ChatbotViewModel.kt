@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class ChatbotViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+        value = "This is chatbot Fragment"
     }
     val text: LiveData<String> = _text
 }
