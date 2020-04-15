@@ -28,7 +28,7 @@
             android:layout_marginTop="300dp"
             android:fontFamily="@font/seguisb"
             android:gravity="center_horizontal"
-            android:text="Tidak ada agenda."
+            android:text="@string/tv_event_not_available"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
@@ -42,7 +42,7 @@
             android:fontFamily="@font/seguisb"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Tambahkan?"
+            android:text="@string/btn_add_info"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="22sp" />

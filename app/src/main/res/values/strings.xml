@@ -7,4 +7,18 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="iv_cd_gtc_ava">Avatar</string>
+    <string name="welcome_message">Selamat datang!</string>
+    <string name="not_available">Tidak tersedia.</string>
+    <string name="et_gch_hint">Cari atau buat kelompok baru!</string>
+    <string name="btn_gch_text">Buat Kelompok Baru</string>
+    <string name="et_gct_name_hint">Nama Kelompok</string>
+    <string name="et_gct_group_hint">Cari pengguna…</string>
+    <string name="tv_gct_daftar">Daftar Anggota:</string>
+    <string name="btn_save">Simpan</string>
+    <string name="tv_event_not_available">Tidak ada agenda.</string>
+    <string name="btn_add_info">Tambahkan?</string>
+    <string name="welcome_message_info">Nice to see you!</string>
+    <string name="btn_sign_in_info">Sign In</string>
+    <string name="welcome_hint">Masuk menggunakan Google untuk melanjutkan!</string>
+    <string name="btn_sign_out">Sign Out</string>
 </resources>
