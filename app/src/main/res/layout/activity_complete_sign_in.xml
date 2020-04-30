@@ -1,8 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.login.CompleteSignIn">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.airmineral.agendakeun.ui.login.AuthViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.login.CompleteSignInActivity">
+
+        <ImageView
+            android:id="@+id/csi_header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:scaleType="fitStart"
+            android:src="@drawable/bg_header"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/csi_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="150dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadImageWithGlide="@{viewModel.user.avatar}"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/csi_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/seguisb"
+            android:text="@string/tv_csi_info"
+            android:textColor="@android:color/black"
+            android:textSize="27sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/csi_avatar" />
+
+
+        <EditText
+            android:id="@+id/et_csi_email"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/et_rounded"
+            android:focusable="false"
+            android:fontFamily="@font/seguisb"
+            android:hint="@string/et_csi_hint_email"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            android:paddingStart="25dp"
+            android:paddingEnd="20dp"
+            android:text="@={viewModel.user.email}"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/colorPrimaryLight"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/csi_hint"
+            tools:ignore="TextFields" />
+
+        <EditText
+            android:id="@+id/et_csi_name"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/et_rounded"
+            android:fontFamily="@font/seguisb"
+            android:hint="@string/csi_et_hint_name"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:paddingStart="25dp"
+            android:paddingEnd="20dp"
+            android:text="@={viewModel.user.name}"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/colorPrimaryLight"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_csi_email" />
+
+        <EditText
+            android:id="@+id/et_csi_position"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/et_rounded"
+            android:fontFamily="@font/seguisb"
+            android:hint="@string/csi_et_hint_pos"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:paddingStart="25dp"
+            android:paddingEnd="20dp"
+            android:text="@={viewModel.user.position}"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/colorPrimaryLight"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_csi_name" />
+
+        <Button
+            android:id="@+id/btn_csi_save"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/btn_style"
+            android:fontFamily="@font/seguisb"
+            android:onClick="@{viewModel::saveNewUser}"
+            android:text="@string/btn_save"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_csi_position" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

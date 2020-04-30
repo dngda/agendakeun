@@ -3,17 +3,16 @@ package com.airmineral.agendakeun.ui.login
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.airmineral.agendakeun.ui.MainActivity
 import com.google.firebase.auth.FirebaseAuth
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : AppCompatActivity() {
 
-    private lateinit var mViewModel: AuthViewModel
+    private val mViewModel: AuthViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
     }
 
     private fun shouldStartSignIn(): Boolean {

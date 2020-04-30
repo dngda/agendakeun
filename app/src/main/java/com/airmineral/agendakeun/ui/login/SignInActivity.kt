@@ -16,10 +16,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_sign_in.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInActivity : AppCompatActivity() {
-
+    private val mViewModel: AuthViewModel by viewModel()
     companion object {
+        const val EXTRA_KEY = "new_sign_uid"
         const val TAG = "SignInActivity"
         const val RC_SIGN_IN = 123
     }
@@ -59,9 +61,15 @@ class SignInActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                    mViewModel.isSigningIn = true
+                    val isNewUser = task.result?.additionalUserInfo?.isNewUser
+                    if (isNewUser!!) {
+                        startActivity(Intent(this, CompleteSignInActivity::class.java))
+                        finish()
+                    } else {
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)

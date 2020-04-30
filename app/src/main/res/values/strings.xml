@@ -21,4 +21,8 @@
     <string name="btn_sign_in_info">Sign In</string>
     <string name="welcome_hint">Masuk menggunakan Google untuk melanjutkan!</string>
     <string name="btn_sign_out">Sign Out</string>
+    <string name="csi_et_hint_pos">Jabatan di Organisasi</string>
+    <string name="csi_et_hint_name">Nama Panggilan</string>
+    <string name="et_csi_hint_email">Email</string>
+    <string name="tv_csi_info">Lengkapi profil Anda!</string>
 </resources>
