@@ -15,6 +15,6 @@ class CompleteSignInActivity : AppCompatActivity() {
         val binding: ActivityCompleteSignInBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_complete_sign_in)
         binding.viewModel = mViewModel
-        mViewModel.getCurrentUser()
+        mViewModel.getNewUser()
     }
 }

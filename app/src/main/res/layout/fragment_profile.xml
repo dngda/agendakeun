@@ -16,20 +16,61 @@
         android:layout_height="match_parent"
         tools:context=".ui.profile.ProfileFragment">
 
-        <TextView
-            android:id="@+id/text_info"
+        <View
+            android:id="@+id/header_back"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@{viewModel.text}"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="200dp"
+            android:background="@color/colorPrimaryDark"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/profile_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="70dp"
+            android:contentDescription="@string/iv_cd_gtc_ava"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadImageWithGlide="@{viewModel.user().avatar}"
+            tools:src="@tools:sample/avatars" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="@color/colorPrimaryVeryDark"
+            app:layout_constraintTop_toBottomOf="@id/header_back" />
+
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/seguisb"
+            android:text="@{viewModel.user().name}"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header_back"
+            tools:text="Danang Dwiyoga Adimurdaka" />
+
+        <TextView
+            android:id="@+id/profile_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/seguisb"
+            android:text="@{viewModel.user().position}"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_name"
+            tools:text="Staff Ahli Medinfo" />
+
 
         <Button
             android:layout_width="wrap_content"

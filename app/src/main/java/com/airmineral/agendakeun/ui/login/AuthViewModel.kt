@@ -5,11 +5,12 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.airmineral.agendakeun.data.model.User
 import com.airmineral.agendakeun.data.repositories.UserRepository
 import com.airmineral.agendakeun.ui.MainActivity
-import com.airmineral.agendakeun.util.Coroutines
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.launch
 
 class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
 
@@ -19,7 +20,7 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> = _user
 
-    fun getCurrentUser() {
+    fun getNewUser() {
         currentUser = userRepository.getCurrentUser()
         _user.value = User(
             currentUser!!.uid,
@@ -30,11 +31,14 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
         )
     }
 
-    fun saveNewUser(view: View) {
-        Coroutines.io {
-            userRepository.saveNewUser(user)
+    private fun saveUserData() {
+        viewModelScope.launch {
+            userRepository.saveUser(user)
         }
+    }
 
+    fun btnSaveNewUser(view: View) {
+        saveUserData()
         Intent(view.context, MainActivity::class.java).also {
             it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             view.context.startActivity(it)

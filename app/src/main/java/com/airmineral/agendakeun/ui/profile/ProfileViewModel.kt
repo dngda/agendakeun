@@ -3,17 +3,14 @@ package com.airmineral.agendakeun.ui.profile
 import android.content.Intent
 import android.view.View
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.airmineral.agendakeun.data.model.User
 import com.airmineral.agendakeun.data.repositories.UserRepository
 import com.airmineral.agendakeun.ui.login.SignInActivity
 
 class ProfileViewModel(private val userRepository: UserRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is profile Fragment"
-    }
-    val text: LiveData<String> = _text
+    fun user(): LiveData<User> = userRepository.getUserData()
 
     fun startSignOut(view: View) {
         userRepository.signOut()
