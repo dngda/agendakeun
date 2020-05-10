@@ -15,6 +15,7 @@ import com.airmineral.agendakeun.databinding.FragmentGroupCreatorBinding
 import com.airmineral.agendakeun.util.Coroutines
 import com.airmineral.agendakeun.util.setInvisible
 import com.airmineral.agendakeun.util.setVisible
+import com.airmineral.agendakeun.util.toast
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_group_creator.*
@@ -68,9 +69,11 @@ class GroupCreatorFragment : Fragment() {
             if (view.gct_checked.visibility == View.INVISIBLE) {
                 setVisible(view.gct_checked)
                 viewModel.selectedUserId.add(itemData.user.uid)
+                context?.toast(viewModel.selectedUserId.toString())
             } else {
                 setInvisible(view.gct_checked)
                 viewModel.selectedUserId.remove(itemData.user.uid)
+                context?.toast(viewModel.selectedUserId.toString())
             }
         }
     }

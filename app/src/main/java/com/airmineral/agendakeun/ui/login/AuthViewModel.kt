@@ -9,9 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.airmineral.agendakeun.data.model.User
 import com.airmineral.agendakeun.data.repositories.UserRepository
 import com.airmineral.agendakeun.ui.MainActivity
-import com.airmineral.agendakeun.util.toast
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
@@ -33,22 +31,14 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
         )
     }
 
-    private suspend fun saveUserData(): Boolean {
-        val result = viewModelScope.async {
+    private fun saveUserData() {
+        viewModelScope.launch {
             userRepository.saveUser(user)
         }
-        return result.await()
     }
 
     fun btnSaveNewUser(view: View) {
-        viewModelScope.launch {
-            val res = saveUserData()
-            if (res) {
-                view.context.toast("Berhasil disimpan!")
-            } else {
-                view.context.toast("Failed to save data!")
-            }
-        }
+        saveUserData()
         Intent(view.context, MainActivity::class.java).also {
             it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             view.context.startActivity(it)

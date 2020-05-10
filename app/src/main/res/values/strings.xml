@@ -8,7 +8,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="iv_cd_gtc_ava">Avatar</string>
     <string name="welcome_message">Selamat datang!</string>
-    <string name="not_available">Tidak tersedia.</string>
+    <string name="not_available">Loading…</string>
     <string name="et_gch_hint">Cari atau buat kelompok baru!</string>
     <string name="btn_gch_text">Buat Kelompok Baru</string>
     <string name="et_gct_name_hint">Nama Kelompok</string>

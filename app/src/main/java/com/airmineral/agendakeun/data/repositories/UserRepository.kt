@@ -23,13 +23,11 @@ class UserRepository {
     private var userRef = db.collection("users")
     private var groupRef = db.collection("groups").document()
 
-    suspend fun saveUser(user: LiveData<User>): Boolean {
-        return try {
+    suspend fun saveUser(user: LiveData<User>) {
+        try {
             userRef.document(getCurrentUser()!!.uid).set(user.value!!).await()
-            true
         } catch (e: FirebaseFirestoreException) {
             Log.d(TAG, e.message!!)
-            false
         }
     }
 
