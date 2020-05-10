@@ -1,67 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:layout_marginStart="@dimen/activity_horizontal_margin"
-    android:layout_marginTop="7dp"
-    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-    app:cardCornerRadius="40dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="user"
+            type="com.airmineral.agendakeun.data.model.User" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="80dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        app:cardCornerRadius="40dp">
 
-        <ImageView
-            android:id="@+id/iv_gct_ava"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/iv_cd_gtc_ava"
-            android:src="@drawable/ic_user"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/item_gct_name"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="7dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/seguisb"
-            android:maxLines="1"
-            android:textColor="@color/colorPrimaryVeryDark"
-            android:textSize="21sp"
-            app:layout_constraintStart_toEndOf="@id/iv_gct_ava"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Danang Dwiyoga A" />
+            <ImageView
+                android:id="@+id/iv_gct_ava"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/iv_cd_gtc_ava"
+                android:src="@drawable/ic_user"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:loadImageWithGlide="@{user.avatar}" />
 
-        <TextView
-            android:id="@+id/item_gct_role"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/seguisb"
-            android:textColor="@color/colorPrimary"
-            android:textSize="17sp"
-            app:layout_constraintStart_toEndOf="@id/iv_gct_ava"
-            app:layout_constraintTop_toBottomOf="@id/item_gct_name"
-            tools:text="Staff Ahli Medinfo" />
+            <TextView
+                android:id="@+id/item_gct_name"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="7dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/seguisb"
+                android:maxLines="1"
+                android:text="@{user.name}"
+                android:textColor="@color/colorPrimaryVeryDark"
+                android:textSize="21sp"
+                app:layout_constraintStart_toEndOf="@id/iv_gct_ava"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Danang Dwiyoga A" />
 
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="24dp"
-            android:src="@drawable/ic_check_circle"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            <TextView
+                android:id="@+id/item_gct_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@{user.position}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@id/iv_gct_ava"
+                app:layout_constraintTop_toBottomOf="@id/item_gct_name"
+                tools:text="Staff Ahli Medinfo" />
+
+            <ImageView
+                android:id="@+id/gct_checked"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="24dp"
+                android:src="@drawable/ic_check_circle"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"
+                tools:visibility="visible" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</layout>

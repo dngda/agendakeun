@@ -6,6 +6,9 @@
     <data>
 
         <variable
+            name="isLoaded"
+            type="java.lang.Boolean" />
+        <variable
             name="viewModel"
             type="com.airmineral.agendakeun.ui.profile.ProfileViewModel" />
 
@@ -34,8 +37,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:loadImageWithGlide="@{viewModel.user().avatar}"
-            tools:src="@tools:sample/avatars" />
+            app:loadAvatarWithGlide="@{viewModel.user.avatar}"
+            tools:src="@drawable/ic_person_24dp" />
 
         <View
             android:layout_width="match_parent"
@@ -49,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/seguisb"
-            android:text="@{viewModel.user().name}"
+            android:text="@{isLoaded ? viewModel.user.name : `Loading...`}"
             android:textColor="@android:color/white"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:fontFamily="@font/seguisb"
-            android:text="@{viewModel.user().position}"
+            android:text="@{viewModel.user.position}"
             android:textColor="@android:color/secondary_text_dark"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"

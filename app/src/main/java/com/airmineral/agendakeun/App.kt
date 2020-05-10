@@ -2,6 +2,7 @@ package com.airmineral.agendakeun
 
 import android.app.Application
 import com.airmineral.agendakeun.data.repositories.UserRepository
+import com.airmineral.agendakeun.ui.home.create.CreateEventViewModel
 import com.airmineral.agendakeun.ui.login.AuthViewModel
 import com.airmineral.agendakeun.ui.profile.ProfileViewModel
 import org.koin.android.ext.koin.androidContext
@@ -21,6 +22,7 @@ class App : Application() {
 
                 viewModel { ProfileViewModel(get()) }
                 viewModel { AuthViewModel(get()) }
+                viewModel { CreateEventViewModel(get()) }
             })
         }
     }

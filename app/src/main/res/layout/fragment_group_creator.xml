@@ -1,112 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.create.GroupCreatorFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <EditText
-        android:id="@+id/et_gct_name"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.airmineral.agendakeun.ui.home.create.CreateEventViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:background="@drawable/et_rounded"
-        android:fontFamily="@font/seguisb"
-        android:hint="@string/et_gct_name_hint"
-        android:importantForAutofill="no"
-        android:inputType="textCapSentences"
-        android:paddingStart="25dp"
-        android:paddingEnd="20dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@color/colorPrimaryLight"
-        android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        tools:context=".ui.home.create.GroupCreatorFragment">
 
-    <EditText
-        android:id="@+id/search_gct_group"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:background="@drawable/et_rounded"
-        android:drawableStart="@drawable/ic_search_24dp"
-        android:drawablePadding="10dp"
-        android:fontFamily="@font/seguisb"
-        android:hint="@string/et_gct_group_hint"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:paddingStart="25dp"
-        android:paddingEnd="20dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@color/colorPrimaryLight"
-        android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_gct_name" />
+        <EditText
+            android:id="@+id/et_gct_name"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/et_rounded"
+            android:fontFamily="@font/seguisb"
+            android:hint="@string/et_gct_name_hint"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:paddingStart="25dp"
+            android:paddingEnd="20dp"
+            android:text="@={viewModel.groupName}"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/colorPrimaryLight"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/seguisb"
-        android:text="@string/tv_gct_daftar"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_gct_group" />
+        <EditText
+            android:id="@+id/search_gct_group"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/et_rounded"
+            android:drawableStart="@drawable/ic_search_24dp"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/seguisb"
+            android:hint="@string/et_gct_group_hint"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingStart="25dp"
+            android:paddingEnd="20dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/colorPrimaryLight"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_gct_name" />
 
-    <TextView
-        android:id="@+id/tv_gct_selected"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/seguisb"
-        tools:text="0 Terpilih"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_gct_group" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/seguisb"
+            android:text="@string/tv_gct_daftar"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_gct_group" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        app:layout_constraintBottom_toTopOf="@id/btn_gct_confirm"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_gct_selected"
-        tools:listitem="@layout/item_group_creator" />
+        <TextView
+            android:id="@+id/tv_gct_selected"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/seguisb"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_gct_group"
+            tools:text="0 Terpilih" />
 
-    <TextView
-        android:id="@+id/tv_gc_errorInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/seguisb"
-        android:text="@string/not_available"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_gct"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            app:layout_constraintBottom_toTopOf="@id/btn_gct_confirm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_gct_selected"
+            tools:listitem="@layout/item_group_creator" />
 
-    <Button
-        android:id="@+id/btn_gct_confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:background="@drawable/btn_style"
-        android:fontFamily="@font/seguisb"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
-        android:text="@string/btn_save"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/tv_gct_errorInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/seguisb"
+            android:text="@string/not_available"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_gct_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/btn_style"
+            android:fontFamily="@font/seguisb"
+            android:onClick="@{viewModel::onSaveBtnClick}"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text="@string/btn_save"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

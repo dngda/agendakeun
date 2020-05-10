@@ -10,7 +10,11 @@ import com.airmineral.agendakeun.ui.login.SignInActivity
 
 class ProfileViewModel(private val userRepository: UserRepository) : ViewModel() {
 
-    fun user(): LiveData<User> = userRepository.getUserData()
+    private val userLiveData by lazy {
+        return@lazy userRepository.getUserData()
+    }
+
+    val user: LiveData<User> = userLiveData
 
     fun startSignOut(view: View) {
         userRepository.signOut()
