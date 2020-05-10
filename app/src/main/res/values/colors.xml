@@ -6,4 +6,6 @@
     <color name="colorPrimaryDark">#6A1B9A</color>
     <color name="colorPrimaryVeryDark">#38006B</color>
     <color name="colorAccent">#6A1B9A</color>
+
+    <drawable name="selectedUser">@color/colorPrimaryVeryLight</drawable>
 </resources>

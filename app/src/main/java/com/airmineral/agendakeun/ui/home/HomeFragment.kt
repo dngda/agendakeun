@@ -1,14 +1,13 @@
 package com.airmineral.agendakeun.ui.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.airmineral.agendakeun.R
-import com.airmineral.agendakeun.ui.home.create.CreateEventActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
@@ -28,10 +27,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btn_home_add.setOnClickListener {
-            startActivity(Intent(context, CreateEventActivity::class.java))
+            it.findNavController().navigate(R.id.action_homeFragment_to_groupChooserFragment)
         }
         fab.setOnClickListener {
-            startActivity(Intent(context, CreateEventActivity::class.java))
+            it.findNavController().navigate(R.id.action_homeFragment_to_groupChooserFragment)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.airmineral.agendakeun
 
 import android.app.Application
+import com.airmineral.agendakeun.data.repositories.GroupRepository
 import com.airmineral.agendakeun.data.repositories.UserRepository
 import com.airmineral.agendakeun.ui.home.create.CreateEventViewModel
 import com.airmineral.agendakeun.ui.login.AuthViewModel
@@ -19,10 +20,11 @@ class App : Application() {
             androidLogger()
             modules(module {
                 single { UserRepository() }
+                single { GroupRepository() }
 
                 viewModel { ProfileViewModel(get()) }
                 viewModel { AuthViewModel(get()) }
-                viewModel { CreateEventViewModel(get()) }
+                viewModel { CreateEventViewModel(get(), get()) }
             })
         }
     }

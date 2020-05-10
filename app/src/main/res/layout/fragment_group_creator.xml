@@ -75,6 +75,7 @@
             android:fontFamily="@font/seguisb"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
+            android:text="@{viewModel.count + ` Terpilih (Termasuk Anda)`}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_gct_group"
             tools:text="0 Terpilih" />

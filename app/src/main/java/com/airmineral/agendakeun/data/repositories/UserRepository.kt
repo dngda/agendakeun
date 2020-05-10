@@ -3,29 +3,22 @@ package com.airmineral.agendakeun.data.repositories
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.airmineral.agendakeun.data.model.Group
 import com.airmineral.agendakeun.data.model.User
+import com.airmineral.agendakeun.data.repositories.FirebaseInstance.auth
+import com.airmineral.agendakeun.data.repositories.FirebaseInstance.userColRef
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
 class UserRepository {
     companion object {
-        const val TAG = "USER REPO"
+        const val TAG = "User Repo"
     }
-
-    private var db = Firebase.firestore
-    private var auth = Firebase.auth
-    private var userRef = db.collection("users")
-    private var groupRef = db.collection("groups").document()
 
     suspend fun saveUser(user: LiveData<User>) {
         try {
-            userRef.document(getCurrentUser()!!.uid).set(user.value!!).await()
+            userColRef.document(getCurrentUser()!!.uid).set(user.value!!).await()
         } catch (e: FirebaseFirestoreException) {
             Log.d(TAG, e.message!!)
         }
@@ -33,7 +26,7 @@ class UserRepository {
 
     fun getUserData(): LiveData<User> {
         val res = MutableLiveData<User>()
-        userRef.document(getCurrentUser()!!.uid).get()
+        userColRef.document(getCurrentUser()!!.uid).get()
             .addOnSuccessListener {
                 if (it != null) {
                     res.postValue(it.toObject<User>())
@@ -57,24 +50,16 @@ class UserRepository {
         return try {
             val res = MutableLiveData<List<User>>()
             val userList = mutableListOf<User>()
-            userRef.get().await().forEach {
+            userColRef.get().await().forEach {
+                if (it.id != getCurrentUser()!!.uid)
                 userList.add(it.toObject())
             }
             res.postValue(userList)
+            Log.d(TAG, res.value.toString())
             res
         } catch (e: Exception) {
             Log.d(TAG, e.message!!)
             null
-        }
-    }
-
-    suspend fun saveGroup(groupData: Group): Boolean {
-        return try {
-            groupRef.set(groupData).await()
-            true
-        } catch (e: FirebaseFirestoreException) {
-            Log.d(TAG, e.message!!)
-            false
         }
     }
 }

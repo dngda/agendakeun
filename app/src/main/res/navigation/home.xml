@@ -3,11 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/homeFragment"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.airmineral.agendakeun.ui.home.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_groupChooserFragment"
+            app:destination="@id/groupChooserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupChooserFragment"
+        android:name="com.airmineral.agendakeun.ui.home.create.GroupChooserFragment"
+        android:label="Pilih Kelompok"
+        tools:layout="@layout/fragment_group_chooser">
+        <action
+            android:id="@+id/action_groupChooserFragment_to_groupCreatorFragment"
+            app:destination="@id/groupCreatorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupCreatorFragment"
+        android:name="com.airmineral.agendakeun.ui.home.create.GroupCreatorFragment"
+        android:label="Buat Kelompok"
+        tools:layout="@layout/fragment_group_creator">
+        <action
+            android:id="@+id/action_groupCreatorFragment_to_groupChooserFragment"
+            app:destination="@id/groupChooserFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
 </navigation>

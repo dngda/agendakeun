@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="isChecked"
+            type="java.lang.Boolean" />
         <variable
             name="user"
             type="com.airmineral.agendakeun.data.model.User" />
@@ -19,6 +24,7 @@
         app:cardCornerRadius="40dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item_gct_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -28,9 +34,10 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/iv_cd_gtc_ava"
                 android:src="@drawable/ic_user"
+                android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:loadImageWithGlide="@{user.avatar}" />
+                app:loadAvatarWithGlide="@{user.avatar}" />
 
             <TextView
                 android:id="@+id/item_gct_name"

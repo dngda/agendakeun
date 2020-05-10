@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,7 +16,6 @@ import com.airmineral.agendakeun.databinding.FragmentGroupCreatorBinding
 import com.airmineral.agendakeun.util.Coroutines
 import com.airmineral.agendakeun.util.setInvisible
 import com.airmineral.agendakeun.util.setVisible
-import com.airmineral.agendakeun.util.toast
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_group_creator.*
@@ -32,12 +32,14 @@ class GroupCreatorFragment : Fragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_group_creator, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
 
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         bindUI()
     }
@@ -68,12 +70,21 @@ class GroupCreatorFragment : Fragment() {
             val itemData = item as UserItem
             if (view.gct_checked.visibility == View.INVISIBLE) {
                 setVisible(view.gct_checked)
+                view.item_gct_background.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorPrimaryVeryLight
+                    )
+                )
+
                 viewModel.selectedUserId.add(itemData.user.uid)
-                context?.toast(viewModel.selectedUserId.toString())
+                viewModel.count.value = viewModel.selectedUserId.size
             } else {
                 setInvisible(view.gct_checked)
+                view.item_gct_background.background = null
+
                 viewModel.selectedUserId.remove(itemData.user.uid)
-                context?.toast(viewModel.selectedUserId.toString())
+                viewModel.count.value = viewModel.selectedUserId.size
             }
         }
     }
