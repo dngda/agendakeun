@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_groupChooserFragment_to_groupCreatorFragment"
             app:destination="@id/groupCreatorFragment" />
+        <action
+            android:id="@+id/action_groupChooserFragment_to_createEventFragment"
+            app:destination="@id/createEventFragment" />
     </fragment>
     <fragment
         android:id="@+id/groupCreatorFragment"
@@ -33,5 +36,14 @@
             android:id="@+id/action_groupCreatorFragment_to_groupChooserFragment"
             app:destination="@id/groupChooserFragment"
             app:popUpTo="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createEventFragment"
+        android:name="com.airmineral.agendakeun.ui.home.create.CreateEventFragment"
+        android:label="Buat Agenda"
+        tools:layout="@layout/fragment_create_event">
+        <action
+            android:id="@+id/action_createEventFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

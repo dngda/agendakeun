@@ -17,7 +17,7 @@ fun loadImage(iv: ImageView, url: String?) {
 fun loadImageAvatar(iv: ImageView, url: String?) {
     Glide.with(iv.context)
         .load(url)
-        .placeholder(R.drawable.ic_person_24dp)
+        .placeholder(R.drawable.ic_user)
         .apply(RequestOptions.circleCropTransform())
         .into(iv)
 }

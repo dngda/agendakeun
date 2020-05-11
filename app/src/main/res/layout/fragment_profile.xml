@@ -61,17 +61,31 @@
             tools:text="Danang Dwiyoga Adimurdaka" />
 
         <TextView
-            android:id="@+id/profile_position"
+            android:id="@+id/profile_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="1dp"
             android:fontFamily="@font/seguisb"
-            android:text="@{viewModel.user.position}"
+            android:text="@{`(`+viewModel.user.email+`)`}"
             android:textColor="@android:color/secondary_text_dark"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profile_name"
+            tools:text="(opowaekeno123@gmail.com)" />
+
+        <TextView
+            android:id="@+id/profile_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/seguisb"
+            android:text="@{viewModel.user.position}"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_email"
             tools:text="Staff Ahli Medinfo" />
 
 

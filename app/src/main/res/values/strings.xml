@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Agendakeun</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Chatbot</string>
@@ -8,7 +8,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="iv_cd_gtc_ava">Avatar</string>
     <string name="welcome_message">Selamat datang!</string>
-    <string name="not_available">Loading…</string>
+    <string name="loading" tools:ignore="TypographyEllipsis">Loading...</string>
+    <string name="not_available">Tidak tersedia, silakan buat baru!</string>
     <string name="et_gch_hint">Cari atau buat kelompok baru!</string>
     <string name="btn_gch_text">Buat Kelompok Baru</string>
     <string name="et_gct_name_hint">Nama Kelompok</string>

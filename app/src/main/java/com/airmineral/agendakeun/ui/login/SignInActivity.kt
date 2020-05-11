@@ -39,7 +39,7 @@ class SignInActivity : AppCompatActivity() {
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
-
+        googleSignInClient.signOut()
         btn_welcome_sign_in.setOnClickListener {
             signIn()
             btn_welcome_sign_in.isEnabled = false

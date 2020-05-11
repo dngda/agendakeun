@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -53,7 +54,10 @@ class GroupChooserFragment : Fragment() {
                 initRecyclerView(it.toGroupItem())
                 Log.d("Chooser Fragment", it.toString())
 
-                setInvisible(tv_gch_errorInfo)
+                if (it.isEmpty())
+                    tv_gch_errorInfo.text = getString(R.string.not_available)
+                else
+                    setInvisible(tv_gch_errorInfo)
             })
         } catch (e: Exception) {
             Log.d("Chooser Fragment", e.message!!)
@@ -68,6 +72,15 @@ class GroupChooserFragment : Fragment() {
         rv_gch.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
+        }
+
+        mAdapter.setOnItemClickListener { item, view ->
+            val itemData = item as GroupItem
+            val groupData = itemData.group
+            val bundle = bundleOf("groupData" to groupData)
+            view.findNavController()
+                .navigate(R.id.action_groupChooserFragment_to_createEventFragment, bundle)
+
         }
     }
 }

@@ -46,9 +46,12 @@ class CreateEventViewModel(
         }.toMap()
 
         viewModelScope.launch {
-            groupRepository.saveGroup(Group(groupName, mapSelectedData))
+            groupRepository.saveGroup(Group(null, groupName, mapSelectedData))
         }
         view.context.toast("Berhasil Disimpan!")
         view.findNavController().navigate(R.id.action_groupCreatorFragment_to_groupChooserFragment)
     }
+
+    val groupData = MutableLiveData<Group>()
+
 }
