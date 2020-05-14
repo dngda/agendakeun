@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -94,6 +95,11 @@ class HomeFragment : Fragment() {
             mAdapter.update(eventItem)
         }
         mAdapter.setOnItemClickListener { item, view ->
+            val itemData = item as EventItem
+            val eventData = itemData.event
+            val bundle = bundleOf("eventData" to eventData)
+            view.findNavController()
+                .navigate(R.id.action_homeFragment_to_eventDetailFragment, bundle)
         }
     }
 }

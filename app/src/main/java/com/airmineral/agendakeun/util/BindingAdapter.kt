@@ -42,3 +42,17 @@ fun convertData(view: TextView, event: Event) {
     val date = sdf.format(event.date!!)
     view.text = "$date at ${event.place!!}"
 }
+
+@BindingAdapter("app:textEventDetailDate")
+fun convertDetailDate(view: TextView, mDate: Date) {
+    val myFormat = "EEEE, dd MMMMM yyyy"
+    val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
+    view.text = sdf.format(mDate)
+}
+
+@BindingAdapter("app:textEventDetailTime")
+fun convertDetailTime(view: TextView, mDate: Date) {
+    val myFormat = "HH:mm z"
+    val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
+    view.text = sdf.format(mDate)
+}

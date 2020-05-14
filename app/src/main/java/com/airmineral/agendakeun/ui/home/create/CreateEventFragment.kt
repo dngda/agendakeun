@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.airmineral.agendakeun.R
-import com.airmineral.agendakeun.data.model.Group
 import com.airmineral.agendakeun.databinding.FragmentCreateEventBinding
 import kotlinx.android.synthetic.main.fragment_create_event.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,7 +18,6 @@ import java.util.*
 class CreateEventFragment : Fragment() {
     private val viewModel: CreateEventViewModel by viewModel()
     private lateinit var binding: FragmentCreateEventBinding
-    private lateinit var groupData: Group
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,7 +62,7 @@ class CreateEventFragment : Fragment() {
                 cal.set(Calendar.SECOND, 0)
                 new_event_time.setText(
                     SimpleDateFormat(
-                        "HH:mm",
+                        "HH:mm z",
                         Locale.getDefault()
                     ).format(cal.time)
                 )
