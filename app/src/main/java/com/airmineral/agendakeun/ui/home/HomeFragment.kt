@@ -44,9 +44,18 @@ class HomeFragment : Fragment() {
         }
 
         bindUI()
-        home_refresh.setOnRefreshListener {
-            bindUI()
-            viewModel.eventList.start()
+    }
+
+    private fun updateUI() = Coroutines.main {
+        try {
+            viewModel.getEventListAsync().await().observe(viewLifecycleOwner, Observer {
+                initRecyclerView(it.toEventItem())
+
+                if (it.isNotEmpty())
+                    home_refresh.isRefreshing = false
+            })
+        } catch (e: Exception) {
+            Log.d(TAG, e.message!!)
         }
     }
 
@@ -63,6 +72,7 @@ class HomeFragment : Fragment() {
                     setInvisible(home_event_art)
                     setInvisible(btn_home_add)
                 }
+
             })
         } catch (e: Exception) {
             Log.d(TAG, e.message!!)
@@ -78,7 +88,11 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
         }
-        mAdapter.notifyDataSetChanged()
+
+        home_refresh.setOnRefreshListener {
+            updateUI()
+            mAdapter.update(eventItem)
+        }
         mAdapter.setOnItemClickListener { item, view ->
         }
     }
