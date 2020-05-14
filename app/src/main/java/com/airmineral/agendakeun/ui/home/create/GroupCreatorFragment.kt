@@ -11,11 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airmineral.agendakeun.R
-import com.airmineral.agendakeun.data.model.User
+import com.airmineral.agendakeun.data.model.UserItem
 import com.airmineral.agendakeun.databinding.FragmentGroupCreatorBinding
 import com.airmineral.agendakeun.util.Coroutines
 import com.airmineral.agendakeun.util.setInvisible
 import com.airmineral.agendakeun.util.setVisible
+import com.airmineral.agendakeun.util.toUserItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_group_creator.*
@@ -46,7 +47,7 @@ class GroupCreatorFragment : Fragment() {
 
     private fun bindUI() = Coroutines.main {
         try {
-            viewModel.listOfAllUser.await().observe(viewLifecycleOwner, Observer {
+            viewModel.allUserList.await().observe(viewLifecycleOwner, Observer {
                 initRecyclerView(it.toUserItem())
 
                 setInvisible(tv_gct_errorInfo)
@@ -77,23 +78,17 @@ class GroupCreatorFragment : Fragment() {
                     )
                 )
 
-                viewModel.selectedUserId.add(itemData.user.uid)
+                viewModel.selectedUserId.add(itemData.user.uid!!)
                 viewModel.count.value = viewModel.selectedUserId.size
             } else {
                 setInvisible(view.gct_checked)
                 view.item_gct_background.background = null
 
-                viewModel.selectedUserId.remove(itemData.user.uid)
+                viewModel.selectedUserId.remove(itemData.user.uid!!)
                 viewModel.count.value = viewModel.selectedUserId.size
             }
         }
     }
 
 
-}
-
-private fun List<User>.toUserItem(): List<UserItem> {
-    return this.map {
-        UserItem(it)
-    }
 }

@@ -41,7 +41,7 @@
 
             <TextView
                 android:id="@+id/item_gct_name"
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="7dp"
@@ -52,6 +52,7 @@
                 android:textColor="@color/colorPrimaryVeryDark"
                 android:textSize="21sp"
                 app:layout_constraintStart_toEndOf="@id/iv_gct_ava"
+                app:layout_constraintEnd_toStartOf="@id/gct_checked"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Danang Dwiyoga A" />
 

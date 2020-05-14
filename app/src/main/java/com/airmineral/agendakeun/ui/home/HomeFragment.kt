@@ -1,26 +1,36 @@
 package com.airmineral.agendakeun.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.airmineral.agendakeun.R
+import com.airmineral.agendakeun.data.model.EventItem
+import com.airmineral.agendakeun.util.Coroutines
+import com.airmineral.agendakeun.util.setInvisible
+import com.airmineral.agendakeun.util.toEventItem
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
+    companion object {
+        const val TAG = "Home Fragment"
+    }
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -31,6 +41,45 @@ class HomeFragment : Fragment() {
         }
         fab.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_groupChooserFragment)
+        }
+
+        bindUI()
+        home_refresh.setOnRefreshListener {
+            bindUI()
+            viewModel.eventList.start()
+        }
+    }
+
+    private fun bindUI() = Coroutines.main {
+        try {
+            viewModel.eventList.await().observe(viewLifecycleOwner, Observer {
+                initRecyclerView(it.toEventItem())
+                Log.d(TAG, it.toString())
+
+                if (it.isEmpty())
+                    home_event_info.text = getString(R.string.tv_event_not_available)
+                else {
+                    setInvisible(home_event_info)
+                    setInvisible(home_event_art)
+                    setInvisible(btn_home_add)
+                }
+            })
+        } catch (e: Exception) {
+            Log.d(TAG, e.message!!)
+        }
+    }
+
+    private fun initRecyclerView(eventItem: List<EventItem>) {
+        val mAdapter = GroupAdapter<ViewHolder>().apply {
+            addAll(eventItem)
+        }
+
+        home_event_rv.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = mAdapter
+        }
+        mAdapter.notifyDataSetChanged()
+        mAdapter.setOnItemClickListener { item, view ->
         }
     }
 }

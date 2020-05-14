@@ -110,7 +110,7 @@
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:background="@drawable/btn_style"
             android:fontFamily="@font/seguisb"
-            android:onClick="@{viewModel::onSaveBtnClick}"
+            android:onClick="@{viewModel::onSaveGroupBtnClick}"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
             android:text="@string/btn_save"

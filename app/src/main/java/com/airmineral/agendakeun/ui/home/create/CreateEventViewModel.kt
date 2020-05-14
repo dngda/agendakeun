@@ -7,27 +7,31 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import com.airmineral.agendakeun.R
+import com.airmineral.agendakeun.data.model.Event
 import com.airmineral.agendakeun.data.model.Group
 import com.airmineral.agendakeun.data.model.User
+import com.airmineral.agendakeun.data.repositories.EventRepository
 import com.airmineral.agendakeun.data.repositories.GroupRepository
 import com.airmineral.agendakeun.data.repositories.UserRepository
 import com.airmineral.agendakeun.util.lazyDeferred
 import com.airmineral.agendakeun.util.toast
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.launch
+import java.util.*
 
 class CreateEventViewModel(
     private val userRepository: UserRepository,
-    private val groupRepository: GroupRepository
+    private val groupRepository: GroupRepository,
+    private val eventRepository: EventRepository
 ) : ViewModel() {
 
     private val currentUserId = userRepository.getCurrentUser()?.uid
 
-    val listOfAllUser: Deferred<LiveData<List<User>>> by lazyDeferred {
+    val allUserList: Deferred<LiveData<List<User>>> by lazyDeferred {
         userRepository.getAllUserList()!!
     }
 
-    val listOfAllGroup: Deferred<LiveData<List<Group>>> by lazyDeferred {
+    val allGroupList: Deferred<LiveData<List<Group>>> by lazyDeferred {
         groupRepository.getAllGroups()!!
     }
 
@@ -40,7 +44,7 @@ class CreateEventViewModel(
         value = selectedUserId.size
     }
 
-    fun onSaveBtnClick(view: View) {
+    fun onSaveGroupBtnClick(view: View) {
         val mapSelectedData = selectedUserId.map {
             it to true
         }.toMap()
@@ -54,4 +58,26 @@ class CreateEventViewModel(
 
     val groupData = MutableLiveData<Group>()
 
+    var eventName: String? = null
+    var eventPlace: String? = null
+    var eventDesc: String? = null
+    var eventDateAndTime: Date? = null
+
+    fun onSaveEventBtnClick(view: View) {
+        viewModelScope.launch {
+            eventRepository.saveGroupEvent(
+                groupData.value?.groupId!!,
+                Event(
+                    null,
+                    groupData.value?.groupId,
+                    groupData.value?.name,
+                    eventName,
+                    eventDateAndTime,
+                    eventPlace,
+                    eventDesc
+                )
+            )
+        }
+        view.findNavController().navigate(R.id.action_createEventFragment_to_homeFragment)
+    }
 }

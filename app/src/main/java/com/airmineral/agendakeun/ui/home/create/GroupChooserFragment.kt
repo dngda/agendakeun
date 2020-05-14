@@ -12,10 +12,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airmineral.agendakeun.R
-import com.airmineral.agendakeun.data.model.Group
+import com.airmineral.agendakeun.data.model.GroupItem
 import com.airmineral.agendakeun.databinding.FragmentGroupChooserBinding
 import com.airmineral.agendakeun.util.Coroutines
 import com.airmineral.agendakeun.util.setInvisible
+import com.airmineral.agendakeun.util.toGroupItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_group_chooser.*
@@ -50,7 +51,7 @@ class GroupChooserFragment : Fragment() {
 
     private fun bindUI() = Coroutines.main {
         try {
-            viewModel.listOfAllGroup.await().observe(viewLifecycleOwner, Observer {
+            viewModel.allGroupList.await().observe(viewLifecycleOwner, Observer {
                 initRecyclerView(it.toGroupItem())
                 Log.d("Chooser Fragment", it.toString())
 
@@ -82,11 +83,5 @@ class GroupChooserFragment : Fragment() {
                 .navigate(R.id.action_groupChooserFragment_to_createEventFragment, bundle)
 
         }
-    }
-}
-
-private fun List<Group>.toGroupItem(): List<GroupItem> {
-    return this.map {
-        GroupItem(it)
     }
 }

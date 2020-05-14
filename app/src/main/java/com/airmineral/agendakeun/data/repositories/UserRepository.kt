@@ -3,9 +3,9 @@ package com.airmineral.agendakeun.data.repositories
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.airmineral.agendakeun.data.FirebaseInstance.auth
+import com.airmineral.agendakeun.data.FirebaseInstance.userColRef
 import com.airmineral.agendakeun.data.model.User
-import com.airmineral.agendakeun.data.repositories.FirebaseInstance.auth
-import com.airmineral.agendakeun.data.repositories.FirebaseInstance.userColRef
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.toObject

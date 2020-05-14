@@ -1,7 +1,6 @@
-package com.airmineral.agendakeun.ui.home.create
+package com.airmineral.agendakeun.data.model
 
 import com.airmineral.agendakeun.R
-import com.airmineral.agendakeun.data.model.User
 import com.airmineral.agendakeun.databinding.ItemGroupCreatorBinding
 import com.xwray.groupie.databinding.BindableItem
 

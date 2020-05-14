@@ -7,9 +7,9 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Group(
     @DocumentId
-    val groupId: String? = null,
+    var groupId: String? = null,
     var name: String? = null,
     var listUsers: Map<String, Boolean>? = null
 ) : Parcelable {
-    constructor() : this("", "", null)
+    constructor() : this(null, null, null)
 }

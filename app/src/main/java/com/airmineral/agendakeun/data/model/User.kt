@@ -4,11 +4,11 @@ import com.google.firebase.firestore.DocumentId
 
 data class User(
     @DocumentId
-    var uid: String,
+    var uid: String? = null,
     var name: String? = null,
     var email: String? = null,
     var avatar: String? = null,
     var position: String? = null
 ) {
-    constructor() : this("", "", "", "", "")
+    constructor() : this(null, null, null, null, null)
 }

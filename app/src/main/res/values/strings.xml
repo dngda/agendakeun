@@ -26,4 +26,10 @@
     <string name="csi_et_hint_name">Nama Panggilan</string>
     <string name="et_csi_hint_email">Email</string>
     <string name="tv_csi_info">Lengkapi profil Anda!</string>
+    <string name="info_tambahan">Info Tambahan (opsional)</string>
+    <string name="event_tempat">Tempat</string>
+    <string name="event_waktu">Waktu</string>
+    <string name="event_tanggal">Tanggal</string>
+    <string name="event_nama_agenda">Nama Agenda</string>
+    <string name="event_kelompok_terkait">Kelompok Terkait</string>
 </resources>
