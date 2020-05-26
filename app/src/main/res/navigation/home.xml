@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homeFragment_to_eventDetailFragment"
             app:destination="@id/eventDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_allEventFragment"
+            app:destination="@id/allEventFragment" />
     </fragment>
     <fragment
         android:id="@+id/groupChooserFragment"
@@ -56,4 +59,9 @@
         android:name="com.airmineral.agendakeun.ui.home.EventDetailFragment"
         android:label="Detail Agenda"
         tools:layout="@layout/fragment_event_detail" />
+    <fragment
+        android:id="@+id/allEventFragment"
+        android:name="com.airmineral.agendakeun.ui.home.AllEventFragment"
+        android:label="Semua Agenda"
+        tools:layout="@layout/fragment_all_event" />
 </navigation>

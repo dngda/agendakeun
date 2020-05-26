@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.databinding.FragmentCreateEventBinding
+import com.airmineral.agendakeun.util.toast
 import kotlinx.android.synthetic.main.fragment_create_event.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -42,6 +43,7 @@ class CreateEventFragment : Fragment() {
 
     private fun initDateTimePicker() {
         val cal = Calendar.getInstance()
+        val curDate = Calendar.getInstance().time
 
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
@@ -51,8 +53,12 @@ class CreateEventFragment : Fragment() {
 
                 val myFormat = "EEEE, dd MMM yyyy" // mention the format you need
                 val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
-                new_event_date.setText(sdf.format(cal.time))
-                viewModel.eventDateAndTime = cal.time
+                if (cal.time < curDate) {
+                    requireContext().toast("Kamu tidak bisa membuat agenda untuk masa lalu!")
+                } else {
+                    new_event_date.setText(sdf.format(cal.time))
+                    viewModel.eventDateAndTime = cal.time
+                }
             }
 
         val timeSetListener =
@@ -60,13 +66,17 @@ class CreateEventFragment : Fragment() {
                 cal.set(Calendar.HOUR_OF_DAY, hour)
                 cal.set(Calendar.MINUTE, minute)
                 cal.set(Calendar.SECOND, 0)
-                new_event_time.setText(
-                    SimpleDateFormat(
-                        "HH:mm z",
-                        Locale.getDefault()
-                    ).format(cal.time)
-                )
-                viewModel.eventDateAndTime = cal.time
+                if (cal.time < curDate) {
+                    requireContext().toast("Kamu tidak bisa membuat agenda untuk masa lalu!")
+                } else {
+                    new_event_time.setText(
+                        SimpleDateFormat(
+                            "HH:mm z",
+                            Locale.getDefault()
+                        ).format(cal.time)
+                    )
+                    viewModel.eventDateAndTime = cal.time
+                }
             }
 
         new_event_date.setOnClickListener {

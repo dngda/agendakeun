@@ -16,6 +16,11 @@ class HomeViewModel(private val eventRepository: EventRepository) : ViewModel() 
         eventRepository.getAllEventList()!!
     }
 
+    val pastEventList: Deferred<LiveData<List<Event>>> by lazyDeferred {
+        eventRepository.getPastEventList()!!
+    }
+
+
     fun getEventListAsync(): Deferred<LiveData<List<Event>>> {
         return viewModelScope.async {
             eventRepository.getAllEventList()!!

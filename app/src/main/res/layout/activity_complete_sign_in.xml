@@ -57,6 +57,7 @@
             android:layout_height="60dp"
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:background="@drawable/et_rounded"
+            android:backgroundTint="@color/colorPrimaryVeryLight"
             android:focusable="false"
             android:fontFamily="@font/seguisb"
             android:hint="@string/et_csi_hint_email"

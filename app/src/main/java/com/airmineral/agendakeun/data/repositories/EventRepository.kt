@@ -10,6 +10,7 @@ import com.airmineral.agendakeun.data.model.Group
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
+import java.util.*
 
 class EventRepository {
     companion object {
@@ -30,6 +31,34 @@ class EventRepository {
             val groupList = mutableListOf<Group>()
             val currentUserID = auth.currentUser?.uid
             val field = "listUsers.$currentUserID"
+            val curDate = Calendar.getInstance().time
+            FirebaseInstance.groupColRef.whereEqualTo(field, true)
+                .get().await().forEach {
+                    groupList.add(it.toObject())
+                }
+            val eventList = mutableListOf<Event>()
+            groupList.forEach {
+                FirebaseInstance.groupEventColRef(it.groupId!!)
+                    .get().await().forEach { its ->
+                        if (its.toObject<Event>().date!! >= curDate)
+                            eventList.add(its.toObject())
+                    }
+            }
+            eventList.sortBy { it.date }
+            allEventList.postValue(eventList)
+            allEventList
+        } catch (e: FirebaseFirestoreException) {
+            Log.d(TAG, e.message!!)
+            null
+        }
+    }
+
+    suspend fun getPastEventList(): LiveData<List<Event>>? {
+        return try {
+            val allEventList = MutableLiveData<List<Event>>()
+            val groupList = mutableListOf<Group>()
+            val currentUserID = auth.currentUser?.uid
+            val field = "listUsers.$currentUserID"
             FirebaseInstance.groupColRef.whereEqualTo(field, true)
                 .get().await().forEach {
                     groupList.add(it.toObject())
@@ -41,7 +70,7 @@ class EventRepository {
                         eventList.add(its.toObject())
                     }
             }
-            eventList.sortBy { it.date }
+            eventList.sortByDescending { it.date }
             allEventList.postValue(eventList)
             allEventList
         } catch (e: FirebaseFirestoreException) {
@@ -49,4 +78,5 @@ class EventRepository {
             null
         }
     }
+
 }

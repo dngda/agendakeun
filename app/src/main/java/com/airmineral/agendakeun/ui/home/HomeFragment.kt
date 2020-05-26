@@ -2,18 +2,18 @@ package com.airmineral.agendakeun.ui.home
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.data.model.EventItem
 import com.airmineral.agendakeun.util.Coroutines
 import com.airmineral.agendakeun.util.setInvisible
+import com.airmineral.agendakeun.util.setVisible
 import com.airmineral.agendakeun.util.toEventItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -26,6 +26,11 @@ class HomeFragment : Fragment() {
     }
 
     private val viewModel: HomeViewModel by viewModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,13 +52,27 @@ class HomeFragment : Fragment() {
         bindUI()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu_items, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.allEvent -> findNavController().navigate(R.id.action_homeFragment_to_allEventFragment)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun updateUI() = Coroutines.main {
         try {
             viewModel.getEventListAsync().await().observe(viewLifecycleOwner, Observer {
                 initRecyclerView(it.toEventItem())
-
-                if (it.isNotEmpty())
-                    home_refresh.isRefreshing = false
+                home_refresh.isRefreshing = false
+                if (it.isEmpty()) {
+                    setVisible(home_event_info)
+                    setVisible(home_event_art)
+                    setVisible(btn_home_add)
+                }
             })
         } catch (e: Exception) {
             Log.d(TAG, e.message!!)

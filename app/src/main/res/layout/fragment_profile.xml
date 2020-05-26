@@ -8,6 +8,7 @@
         <variable
             name="isLoaded"
             type="java.lang.Boolean" />
+
         <variable
             name="viewModel"
             type="com.airmineral.agendakeun.ui.profile.ProfileViewModel" />
@@ -40,54 +41,48 @@
             app:loadAvatarWithGlide="@{viewModel.user.avatar}"
             tools:src="@drawable/ic_person_24dp" />
 
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimaryVeryDark"
-            app:layout_constraintTop_toBottomOf="@id/header_back" />
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@id/header_back">
 
-        <TextView
-            android:id="@+id/profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@{isLoaded ? viewModel.user.name : `Loading...`}"
-            android:textColor="@android:color/white"
-            android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_back"
-            tools:text="Danang Dwiyoga Adimurdaka" />
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@{isLoaded ? viewModel.user.name : `Loading...`}"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                tools:text="Danang Dwiyoga Adimurdaka" />
 
-        <TextView
-            android:id="@+id/profile_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@{`(`+viewModel.user.email+`)`}"
-            android:textColor="@android:color/secondary_text_dark"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_name"
-            tools:text="(opowaekeno123@gmail.com)" />
+            <TextView
+                android:id="@+id/profile_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@{`(`+viewModel.user.email+`)`}"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="18sp"
+                tools:text="(opowaekeno123@gmail.com)" />
 
-        <TextView
-            android:id="@+id/profile_position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@{viewModel.user.position}"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_email"
-            tools:text="Staff Ahli Medinfo" />
-
+            <TextView
+                android:id="@+id/profile_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@{viewModel.user.position}"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                tools:text="Staff Ahli Medinfo" />
+        </LinearLayout>
 
         <Button
             android:layout_width="wrap_content"
