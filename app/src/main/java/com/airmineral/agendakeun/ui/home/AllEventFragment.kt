@@ -74,7 +74,7 @@ class AllEventFragment : Fragment() {
             val eventData = itemData.event
             val bundle = bundleOf("eventData" to eventData)
             view.findNavController()
-                .navigate(R.id.action_homeFragment_to_eventDetailFragment, bundle)
+                .navigate(R.id.action_allEventFragment_to_eventDetailFragment, bundle)
         }
     }
 

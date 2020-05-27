@@ -63,5 +63,9 @@
         android:id="@+id/allEventFragment"
         android:name="com.airmineral.agendakeun.ui.home.AllEventFragment"
         android:label="Semua Agenda"
-        tools:layout="@layout/fragment_all_event" />
+        tools:layout="@layout/fragment_all_event">
+        <action
+            android:id="@+id/action_allEventFragment_to_eventDetailFragment"
+            app:destination="@id/eventDetailFragment" />
+    </fragment>
 </navigation>
