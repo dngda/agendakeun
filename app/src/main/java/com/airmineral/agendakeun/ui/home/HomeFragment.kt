@@ -69,9 +69,10 @@ class HomeFragment : Fragment() {
                 initRecyclerView(it.toEventItem())
                 home_refresh.isRefreshing = false
                 if (it.isEmpty()) {
-                    setVisible(home_event_info)
-                    setVisible(home_event_art)
-                    setVisible(btn_home_add)
+                    home_event_info.text = getString(R.string.tv_event_not_available)
+                    setViewVisible()
+                } else {
+                    setViewInvisible()
                 }
             })
         } catch (e: Exception) {
@@ -88,9 +89,7 @@ class HomeFragment : Fragment() {
                 if (it.isEmpty())
                     home_event_info.text = getString(R.string.tv_event_not_available)
                 else {
-                    setInvisible(home_event_info)
-                    setInvisible(home_event_art)
-                    setInvisible(btn_home_add)
+                    setViewInvisible()
                 }
 
             })
@@ -120,5 +119,17 @@ class HomeFragment : Fragment() {
             view.findNavController()
                 .navigate(R.id.action_homeFragment_to_eventDetailFragment, bundle)
         }
+    }
+
+    private fun setViewInvisible() {
+        setInvisible(home_event_info)
+        setInvisible(home_event_art)
+        setInvisible(btn_home_add)
+    }
+
+    private fun setViewVisible() {
+        setVisible(home_event_info)
+        setVisible(home_event_art)
+        setVisible(btn_home_add)
     }
 }
