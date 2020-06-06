@@ -1,6 +1,7 @@
 package com.airmineral.agendakeun.ui.home
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,10 +23,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AllEventFragment : Fragment() {
     companion object {
-        const val TAG = "All Event Fragment"
+        private const val TAG = "All Event Fragment"
+        private const val LIST_STATE_KEY = "AllEF"
     }
 
     private val viewModel: HomeViewModel by viewModel()
+    private lateinit var mListState: Parcelable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +43,17 @@ class AllEventFragment : Fragment() {
         bindUI()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        mListState = all_event_rv.layoutManager?.onSaveInstanceState()!!
+        outState.putParcelable(LIST_STATE_KEY, mListState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        all_event_rv.layoutManager?.onRestoreInstanceState(mListState)
+    }
     private fun bindUI() = Coroutines.main {
         try {
             viewModel.pastEventList.await().observe(viewLifecycleOwner, Observer {

@@ -12,278 +12,276 @@
             type="com.airmineral.agendakeun.ui.home.HomeViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.home.EventDetailFragment">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/ic_0"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_icon_material_people"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/tv_0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="14dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@string/kelompok_terkait"
-            android:textColor="@color/colorPrimaryVeryDark"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/ic_0"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/event_detail_group"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@{viewModel.eventDetail.groupName}"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/ic_0"
-            app:layout_constraintTop_toBottomOf="@id/tv_0"
-            tools:text="Panitia Elination 2020" />
-
-        <ImageView
-            android:id="@+id/ic_1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_icon_material_event"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_detail_group"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/tv_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="14dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@string/nama_agenda"
-            android:textColor="@color/colorPrimaryVeryDark"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/ic_1"
-            app:layout_constraintTop_toBottomOf="@id/event_detail_group" />
-
-        <TextView
-            android:id="@+id/event_detail_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@{viewModel.eventDetail.name}"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/ic_1"
-            app:layout_constraintTop_toBottomOf="@id/tv_1"
-            tools:text="Rapat Besar Elination 2020 aaaaaaaaaaaaaa" />
-
-        <ImageView
-            android:id="@+id/ic_2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_icon_material_date_range"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_detail_name"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/tv_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="14dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@string/tanggal"
-            android:textColor="@color/colorPrimaryVeryDark"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/ic_2"
-            app:layout_constraintTop_toBottomOf="@id/event_detail_name" />
-
-        <TextView
-            android:id="@+id/event_detail_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/seguisb"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/ic_2"
-            app:layout_constraintTop_toBottomOf="@id/tv_2"
-            app:textEventDetailDate="@{viewModel.eventDetail.date}"
-            tools:text="Sabtu, 20 Maret 2020" />
-
-        <ImageView
-            android:id="@+id/ic_3"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_icon_feather_clock"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_detail_date"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/tv_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="14dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@string/waktu"
-            android:textColor="@color/colorPrimaryVeryDark"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/ic_3"
-            app:layout_constraintTop_toBottomOf="@id/event_detail_date" />
-
-        <TextView
-            android:id="@+id/event_detail_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/seguisb"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/ic_3"
-            app:layout_constraintTop_toBottomOf="@id/tv_3"
-            app:textEventDetailTime="@{viewModel.eventDetail.date}"
-            tools:text="09:00 WIB" />
-
-        <ImageView
-            android:id="@+id/ic_4"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_icon_material_location_on"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_detail_time"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/tv_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="14dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@string/tempat"
-            android:textColor="@color/colorPrimaryVeryDark"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/ic_4"
-            app:layout_constraintTop_toBottomOf="@id/event_detail_time" />
-
-        <TextView
-            android:id="@+id/event_detail_place"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@{viewModel.eventDetail.place}"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/ic_4"
-            app:layout_constraintTop_toBottomOf="@id/tv_4"
-            tools:text="Selasar KPLT" />
-
-        <ImageView
-            android:id="@+id/ic_5"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_icon_material_event_note"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_detail_place"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/tv_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="14dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@string/info_tambahan_tv"
-            android:textColor="@color/colorPrimaryVeryDark"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/ic_5"
-            app:layout_constraintTop_toBottomOf="@id/event_detail_place" />
-
-        <TextView
-            android:id="@+id/event_detail_desc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@{TextUtils.isEmpty(viewModel.eventDetail.desc) ? `(tidak ada)` : viewModel.eventDetail.desc}"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/ic_5"
-            app:layout_constraintTop_toBottomOf="@id/tv_5"
-            tools:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat." />
-
-        <View
-            android:id="@+id/div_1"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_detail_desc" />
-
-        <Switch
-            android:id="@+id/switch_notification"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/div_1"
-            tools:checked="true" />
-
-        <TextView
-            android:id="@+id/tv_7"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="14dp"
-            android:fontFamily="@font/seguisb"
-            android:text="@string/switch_info"
-            android:textColor="@color/colorPrimaryVeryDark"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/switch_notification"
-            app:layout_constraintTop_toBottomOf="@id/div_1" />
+            tools:context=".ui.home.EventDetailFragment">
+
+            <ImageView
+                android:id="@+id/ic_0"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_icon_material_people"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@string/kelompok_terkait"
+                android:textColor="@color/colorPrimaryVeryDark"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/ic_0"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/event_detail_group"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@{viewModel.eventDetail.groupName}"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ic_0"
+                app:layout_constraintTop_toBottomOf="@id/tv_0"
+                tools:text="Panitia Elination 2020" />
+
+            <ImageView
+                android:id="@+id/ic_1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_icon_material_event"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/event_detail_group"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@string/nama_agenda"
+                android:textColor="@color/colorPrimaryVeryDark"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/ic_1"
+                app:layout_constraintTop_toBottomOf="@id/event_detail_group" />
+
+            <TextView
+                android:id="@+id/event_detail_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@{viewModel.eventDetail.name}"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ic_1"
+                app:layout_constraintTop_toBottomOf="@id/tv_1"
+                tools:text="Rapat Besar Elination 2020 aaaaaaaaaaaaaa" />
+
+            <ImageView
+                android:id="@+id/ic_2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_icon_material_date_range"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/event_detail_name"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@string/tanggal"
+                android:textColor="@color/colorPrimaryVeryDark"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/ic_2"
+                app:layout_constraintTop_toBottomOf="@id/event_detail_name" />
+
+            <TextView
+                android:id="@+id/event_detail_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/seguisb"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ic_2"
+                app:layout_constraintTop_toBottomOf="@id/tv_2"
+                app:textEventDetailDate="@{viewModel.eventDetail.date}"
+                tools:text="Sabtu, 20 Maret 2020" />
+
+            <ImageView
+                android:id="@+id/ic_3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_icon_feather_clock"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/event_detail_date"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@string/waktu"
+                android:textColor="@color/colorPrimaryVeryDark"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/ic_3"
+                app:layout_constraintTop_toBottomOf="@id/event_detail_date" />
+
+            <TextView
+                android:id="@+id/event_detail_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/seguisb"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ic_3"
+                app:layout_constraintTop_toBottomOf="@id/tv_3"
+                app:textEventDetailTime="@{viewModel.eventDetail.date}"
+                tools:text="09:00 WIB" />
+
+            <ImageView
+                android:id="@+id/ic_4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_icon_material_location_on"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/event_detail_time"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@string/tempat"
+                android:textColor="@color/colorPrimaryVeryDark"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/ic_4"
+                app:layout_constraintTop_toBottomOf="@id/event_detail_time" />
+
+            <TextView
+                android:id="@+id/event_detail_place"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@{viewModel.eventDetail.place}"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ic_4"
+                app:layout_constraintTop_toBottomOf="@id/tv_4"
+                tools:text="Selasar KPLT" />
+
+            <ImageView
+                android:id="@+id/ic_5"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_icon_material_event_note"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/event_detail_place"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@string/info_tambahan_tv"
+                android:textColor="@color/colorPrimaryVeryDark"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/ic_5"
+                app:layout_constraintTop_toBottomOf="@id/event_detail_place" />
+
+            <TextView
+                android:id="@+id/event_detail_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/seguisb"
+                android:text="@{TextUtils.isEmpty(viewModel.eventDetail.desc) ? `(tidak ada)` : viewModel.eventDetail.desc}"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ic_5"
+                app:layout_constraintTop_toBottomOf="@id/tv_5"
+                tools:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat." />
+
+            <View
+                android:id="@+id/div_1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/event_detail_desc" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_notification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:fontFamily="@font/seguisb"
+                android:paddingBottom="32dp"
+                android:text="@string/switch_info"
+                android:textColor="@color/colorPrimaryVeryDark"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/div_1"
+                tools:checked="true" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

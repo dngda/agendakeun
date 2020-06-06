@@ -3,6 +3,7 @@ package com.airmineral.agendakeun.data
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 
 object FirebaseInstance {
     private val db = Firebase.firestore
@@ -10,4 +11,6 @@ object FirebaseInstance {
     val userColRef = db.collection("users")
     val groupColRef = db.collection("groups")
     fun groupEventColRef(groupId: String) = groupColRef.document(groupId).collection("events")
+    fun fcmSubscribeToTopic(topic: String) =
+        FirebaseMessaging.getInstance().subscribeToTopic("/topics/$topic")
 }

@@ -39,8 +39,8 @@ class EventRepository {
             val eventList = mutableListOf<Event>()
             groupList.forEach {
                 FirebaseInstance.groupEventColRef(it.groupId!!)
+                    .whereGreaterThanOrEqualTo("date", curDate)
                     .get().await().forEach { its ->
-                        if (its.toObject<Event>().date!! >= curDate)
                             eventList.add(its.toObject())
                     }
             }

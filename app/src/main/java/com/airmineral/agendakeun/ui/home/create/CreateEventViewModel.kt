@@ -13,10 +13,12 @@ import com.airmineral.agendakeun.data.model.User
 import com.airmineral.agendakeun.data.repositories.EventRepository
 import com.airmineral.agendakeun.data.repositories.GroupRepository
 import com.airmineral.agendakeun.data.repositories.UserRepository
+import com.airmineral.agendakeun.notification.sendNotificationToServer
 import com.airmineral.agendakeun.util.lazyDeferred
 import com.airmineral.agendakeun.util.toast
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateEventViewModel(
@@ -78,6 +80,13 @@ class CreateEventViewModel(
                 )
             )
         }
+        val sdFormat = SimpleDateFormat("EEEE, dd MMM yyyy 'pukul' HH:mm", Locale.getDefault())
+        val dateTime = sdFormat.format(eventDateAndTime!!)
+        sendNotificationToServer(
+            view.context, groupData.value?.groupId!!,
+            "Agenda baru untuk ${groupData.value?.name} ditambahkan!",
+            "$eventName pada hari $dateTime bertempat di $eventPlace."
+        )
         view.findNavController().navigate(R.id.action_createEventFragment_to_homeFragment)
     }
 }
