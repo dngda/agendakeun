@@ -30,7 +30,7 @@ class EventRepository {
             val allEventList = MutableLiveData<List<Event>>()
             val groupList = mutableListOf<Group>()
             val currentUserID = auth.currentUser?.uid
-            val field = "listUsers.$currentUserID"
+            val field = "userList.$currentUserID"
             val curDate = Calendar.getInstance().time
             FirebaseInstance.groupColRef.whereEqualTo(field, true)
                 .get().await().forEach {
@@ -58,7 +58,7 @@ class EventRepository {
             val allEventList = MutableLiveData<List<Event>>()
             val groupList = mutableListOf<Group>()
             val currentUserID = auth.currentUser?.uid
-            val field = "listUsers.$currentUserID"
+            val field = "userList.$currentUserID"
             FirebaseInstance.groupColRef.whereEqualTo(field, true)
                 .get().await().forEach {
                     groupList.add(it.toObject())

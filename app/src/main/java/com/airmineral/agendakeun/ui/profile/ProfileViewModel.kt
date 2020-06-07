@@ -2,13 +2,24 @@ package com.airmineral.agendakeun.ui.profile
 
 import android.content.Intent
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.findNavController
+import com.airmineral.agendakeun.R
+import com.airmineral.agendakeun.data.model.Group
 import com.airmineral.agendakeun.data.model.User
+import com.airmineral.agendakeun.data.repositories.GroupRepository
 import com.airmineral.agendakeun.data.repositories.UserRepository
 import com.airmineral.agendakeun.ui.login.SignInActivity
+import com.airmineral.agendakeun.util.lazyDeferred
+import kotlinx.coroutines.Deferred
 
-class ProfileViewModel(private val userRepository: UserRepository) : ViewModel() {
+class ProfileViewModel(
+    private val userRepository: UserRepository,
+    private val groupRepository: GroupRepository
+) : ViewModel() {
 
     private val userLiveData by lazy {
         return@lazy userRepository.getUserData()
@@ -24,4 +35,17 @@ class ProfileViewModel(private val userRepository: UserRepository) : ViewModel()
             view.context.startActivity(it)
         }
     }
+
+    fun startManageGroup(view: View) {
+        val bundle = bundleOf("isFromProfile" to true)
+        view.findNavController().navigate(R.id.action_profileFragment_to_groupManager, bundle)
+    }
+
+    var groupData: Group? = null
+    val count = MutableLiveData<Int>()
+
+    val groupUserList: Deferred<LiveData<List<User>>> by lazyDeferred {
+        groupRepository.getGroupUserList(groupData?.groupId!!)!!
+    }
+
 }

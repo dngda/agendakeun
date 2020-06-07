@@ -1,6 +1,7 @@
 package com.airmineral.agendakeun.ui.home.create
 
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,7 +28,9 @@ class CreateEventViewModel(
     private val eventRepository: EventRepository
 ) : ViewModel() {
 
-    private val currentUserId = userRepository.getCurrentUser()?.uid
+    private val currentUser = userRepository.getCurrentUser()
+    private val currentUserId = currentUser?.uid
+    var isFromProfile = false
 
     val allUserList: Deferred<LiveData<List<User>>> by lazyDeferred {
         userRepository.getAllUserList()!!
@@ -55,7 +58,15 @@ class CreateEventViewModel(
             groupRepository.saveGroup(Group(null, groupName, mapSelectedData))
         }
         view.context.toast("Berhasil Disimpan!")
-        view.findNavController().navigate(R.id.action_groupCreatorFragment_to_groupChooserFragment)
+        if (isFromProfile) {
+            val bundle = bundleOf("isFromProfile" to true)
+            view.findNavController()
+                .navigate(R.id.action_groupCreatorFragment2_to_groupManager, bundle)
+        } else {
+            val bundle = bundleOf("isFromProfile" to false)
+            view.findNavController()
+                .navigate(R.id.action_groupCreatorFragment_to_groupChooserFragment, bundle)
+        }
     }
 
     val groupData = MutableLiveData<Group>()
@@ -76,7 +87,8 @@ class CreateEventViewModel(
                     eventName,
                     eventDateAndTime,
                     eventPlace,
-                    eventDesc
+                    eventDesc,
+                    currentUser?.displayName
                 )
             )
         }

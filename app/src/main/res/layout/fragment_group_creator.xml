@@ -75,10 +75,10 @@
             android:fontFamily="@font/seguisb"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
-            android:text="@{viewModel.count + ` Terpilih (Termasuk Anda)`}"
+            android:text="@{String.format(@string/group_creator_count, viewModel.count)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_gct_group"
-            tools:text="0 Terpilih" />
+            tools:text="1 Terpilih (Termasuk Anda)" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_gct"

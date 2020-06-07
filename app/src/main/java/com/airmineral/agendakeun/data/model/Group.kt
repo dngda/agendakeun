@@ -9,7 +9,7 @@ data class Group(
     @DocumentId
     var groupId: String? = null,
     var name: String? = null,
-    var listUsers: Map<String, Boolean>? = null
+    var userList: Map<String, Boolean>? = null
 ) : Parcelable {
     constructor() : this(null, null, null)
 }

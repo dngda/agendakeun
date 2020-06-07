@@ -42,18 +42,21 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val bundle = bundleOf("isFromProfile" to false)
         btn_home_add.setOnClickListener {
-            it.findNavController().navigate(R.id.action_homeFragment_to_groupChooserFragment)
+            it.findNavController()
+                .navigate(R.id.action_homeFragment_to_groupChooserFragment, bundle)
         }
         fab.setOnClickListener {
-            it.findNavController().navigate(R.id.action_homeFragment_to_groupChooserFragment)
+            it.findNavController()
+                .navigate(R.id.action_homeFragment_to_groupChooserFragment, bundle)
         }
 
         bindUI()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.home_menu_items, menu)
+        inflater.inflate(R.menu.menu_home_items, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

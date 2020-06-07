@@ -25,7 +25,7 @@ class App : Application() {
                 single { GroupRepository() }
                 single { EventRepository() }
 
-                viewModel { ProfileViewModel(get()) }
+                viewModel { ProfileViewModel(get(), get()) }
                 viewModel { AuthViewModel(get()) }
                 viewModel { CreateEventViewModel(get(), get(), get()) }
                 viewModel { HomeViewModel(get()) }

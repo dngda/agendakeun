@@ -43,6 +43,7 @@ class GroupCreatorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         bindUI()
+        viewModel.isFromProfile = arguments?.getBoolean("isFromProfile")!!
     }
 
     private fun bindUI() = Coroutines.main {

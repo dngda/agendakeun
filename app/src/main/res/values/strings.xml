@@ -40,4 +40,9 @@
     <string name="menu_past_event">Lihat semua agenda</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="btn_manage_group">Kelola Kelompok</string>
+    <string name="creator">Event created by %s</string>
+    <string name="group_creator_count">%d Terpilih (Termasuk Anda)</string>
+    <string name="group_manage_count">%d Anggota</string>
+    <string name="menu_edit">Edit</string>
 </resources>
