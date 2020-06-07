@@ -26,6 +26,7 @@ class GroupChooserFragment : Fragment() {
 
     private val viewModel: CreateEventViewModel by viewModel()
     private lateinit var binding: FragmentGroupChooserBinding
+    private var isFromProfile: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,10 +43,18 @@ class GroupChooserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindUI()
+        isFromProfile = arguments?.getBoolean("isFromProfile", false)!!
 
         btn_gch_create.setOnClickListener {
-            it.findNavController()
-                .navigate(R.id.action_groupChooserFragment_to_groupCreatorFragment)
+            if (isFromProfile) {
+                val bundle = bundleOf("isFromProfile" to true)
+                it.findNavController()
+                    .navigate(R.id.action_groupManager_to_groupCreatorFragment2, bundle)
+            } else {
+                val bundle = bundleOf("isFromProfile" to false)
+                it.findNavController()
+                    .navigate(R.id.action_groupChooserFragment_to_groupCreatorFragment, bundle)
+            }
         }
     }
 
@@ -79,8 +88,13 @@ class GroupChooserFragment : Fragment() {
             val itemData = item as GroupItem
             val groupData = itemData.group
             val bundle = bundleOf("groupData" to groupData)
-            view.findNavController()
-                .navigate(R.id.action_groupChooserFragment_to_createEventFragment, bundle)
+            if (isFromProfile) {
+                view.findNavController()
+                    .navigate(R.id.action_groupManager_to_manageGroupFragment, bundle)
+            } else {
+                view.findNavController()
+                    .navigate(R.id.action_groupChooserFragment_to_createEventFragment, bundle)
+            }
 
         }
     }

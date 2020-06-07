@@ -14,7 +14,8 @@ data class Event(
     var name: String? = null,
     var date: Date? = null,
     var place: String? = null,
-    var desc: String? = null
+    var desc: String? = null,
+    var creator: String? = null
 ) : Parcelable {
-    constructor() : this("", "", "", "", null, "", "")
+    constructor() : this("", "", "", "", null, "", "", "")
 }

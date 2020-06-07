@@ -9,5 +9,39 @@
         android:id="@+id/profileFragment"
         android:name="com.airmineral.agendakeun.ui.profile.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_groupManager"
+            app:destination="@id/groupManager" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupManager"
+        android:name="com.airmineral.agendakeun.ui.home.create.GroupChooserFragment"
+        android:label="Kelola Kelompok"
+        tools:layout="@layout/fragment_group_chooser">
+        <action
+            android:id="@+id/action_groupManager_to_groupCreatorFragment2"
+            app:destination="@id/groupCreatorFragment2" />
+        <action
+            android:id="@+id/action_groupManager_to_manageGroupFragment"
+            app:destination="@id/manageGroupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupCreatorFragment2"
+        android:name="com.airmineral.agendakeun.ui.home.create.GroupCreatorFragment"
+        android:label="Buat Kelompok"
+        tools:layout="@layout/fragment_group_creator">
+        <action
+            android:id="@+id/action_groupCreatorFragment2_to_groupManager"
+            app:destination="@id/groupManager" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageGroupFragment"
+        android:name="com.airmineral.agendakeun.ui.profile.ManageGroupFragment"
+        android:label="Kelola"
+        tools:layout="@layout/fragment_manage_group">
+        <action
+            android:id="@+id/action_manageGroupFragment_to_groupManager"
+            app:destination="@id/groupManager" />
+    </fragment>
 </navigation>
