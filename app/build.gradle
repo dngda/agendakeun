@@ -71,10 +71,15 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:19.3.1'
     implementation 'com.google.firebase:firebase-firestore-ktx:21.4.3'
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
-    implementation 'com.google.firebase:firebase-messaging:20.2.0'
+    implementation 'com.google.firebase:firebase-messaging:20.2.1'
+
+    implementation group: 'com.google.guava', name: 'guava', version: '27.0.1-android'
 
     //Http lib
     implementation 'com.android.volley:volley:1.1.1'
+
+    //Work Manager
+    implementation "androidx.work:work-runtime-ktx:2.3.4"
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'

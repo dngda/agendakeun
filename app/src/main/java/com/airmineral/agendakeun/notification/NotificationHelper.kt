@@ -1,8 +1,18 @@
 package com.airmineral.agendakeun.notification
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.media.RingtoneManager
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import com.airmineral.agendakeun.R
+import com.airmineral.agendakeun.ui.MainActivity
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -58,4 +68,32 @@ private fun sendFCM(context: Context, notification: JSONObject) {
     requestQueue.add(jsonObjectRequest)
 }
 
+fun sendNotification(context: Context, messageTitle: String?, messageBody: String?) {
+    val intent = Intent(context, MainActivity::class.java)
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+    val channelId = context.getString(R.string.default_notification_channel_id)
+    val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+    val notificationBuilder = NotificationCompat.Builder(context, channelId)
+        .setSmallIcon(R.drawable.ic_logo_check)
+        .setContentTitle(messageTitle)
+        .setContentText(messageBody)
+        .setAutoCancel(true)
+        .setSound(defaultSoundUri)
+        .setContentIntent(pendingIntent)
+        .setStyle(NotificationCompat.BigTextStyle())
+    val notificationManager =
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val channel = NotificationChannel(
+            channelId,
+            "Event-Notification",
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        channel.enableLights(true)
+        channel.lightColor = Color.RED
+        notificationManager.createNotificationChannel(channel)
+    }
+    notificationManager.notify(0, notificationBuilder.build())
+}
