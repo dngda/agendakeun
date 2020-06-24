@@ -36,7 +36,7 @@
     <string name="waktu">Waktu :</string>
     <string name="tempat">Tempat :</string>
     <string name="info_tambahan_tv">Info Tambahan :</string>
-    <string name="switch_info"><big>Notifikasi</big>\nDapatkan notifikasi 1 jam sebelumnya</string>
+    <string name="switch_info"><big>Notifikasi</big>\nDapatkan notifikasi 1 jam sebelumnya dan saat sedang berlangsung.</string>
     <string name="menu_past_event">Lihat semua agenda</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>

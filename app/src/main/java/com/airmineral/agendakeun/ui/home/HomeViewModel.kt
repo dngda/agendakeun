@@ -29,4 +29,8 @@ class HomeViewModel(private val eventRepository: EventRepository) : ViewModel() 
 
     val eventData = MutableLiveData<Event>()
     val eventDetail: LiveData<Event> = eventData
+
+    val isSwitchChecked = MutableLiveData<Boolean>().apply {
+        value = false
+    }
 }
