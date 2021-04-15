@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chatbot"
-    app:startDestination="@id/chatbotFragment"
+    app:startDestination="@id/dashboardFragment"
     tools:ignore="UnusedNavigation">
 
     <fragment
-        android:id="@+id/chatbotFragment"
-        android:name="com.airmineral.agendakeun.ui.chatbot.ChatbotFragment"
+        android:id="@+id/dashboardFragment"
+        android:name="com.airmineral.agendakeun.ui.dashboard.DashboardFragment"
         android:label="Chatbot"
-        tools:layout="@layout/fragment_chatbot" />
+        tools:layout="@layout/fragment_dashboard" />
 </navigation>

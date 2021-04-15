@@ -1,6 +1,7 @@
 package com.airmineral.agendakeun
 
 import android.app.Application
+import com.airmineral.agendakeun.data.FirebaseInstance
 import com.airmineral.agendakeun.data.repositories.EventRepository
 import com.airmineral.agendakeun.data.repositories.GroupRepository
 import com.airmineral.agendakeun.data.repositories.UserRepository
@@ -21,9 +22,10 @@ class App : Application() {
             androidContext(this@App)
             androidLogger()
             modules(module {
-                single { UserRepository() }
-                single { GroupRepository() }
-                single { EventRepository() }
+                single { FirebaseInstance() }
+                single { UserRepository(get()) }
+                single { GroupRepository(get()) }
+                single { EventRepository(get()) }
 
                 viewModel { ProfileViewModel(get(), get()) }
                 viewModel { AuthViewModel(get()) }

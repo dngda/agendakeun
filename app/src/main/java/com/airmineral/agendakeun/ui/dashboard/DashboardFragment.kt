@@ -1,4 +1,4 @@
-package com.airmineral.agendakeun.ui.chatbot
+package com.airmineral.agendakeun.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.airmineral.agendakeun.R
 
-class ChatbotFragment : Fragment() {
+class DashboardFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: ChatbotViewModel
+    private lateinit var dashboardViewModel: DashboardViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,8 +20,8 @@ class ChatbotFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         dashboardViewModel =
-            ViewModelProvider(this).get(ChatbotViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_chatbot, container, false)
+            ViewModelProvider(this).get(DashboardViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
         dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it

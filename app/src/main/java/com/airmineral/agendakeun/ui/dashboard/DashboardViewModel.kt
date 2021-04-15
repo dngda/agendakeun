@@ -1,10 +1,10 @@
-package com.airmineral.agendakeun.ui.chatbot
+package com.airmineral.agendakeun.ui.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class ChatbotViewModel : ViewModel() {
+class DashboardViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "Not Implemented yet."

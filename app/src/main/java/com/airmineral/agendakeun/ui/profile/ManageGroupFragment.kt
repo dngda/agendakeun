@@ -14,7 +14,6 @@ import com.airmineral.agendakeun.util.Coroutines
 import com.airmineral.agendakeun.util.toUserItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.fragment_manage_group.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ManageGroupFragment : Fragment() {
@@ -77,7 +76,7 @@ class ManageGroupFragment : Fragment() {
             addAll(userItem)
         }
 
-        rv_manage_group.apply {
+        binding.rvManageGroup.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
         }
