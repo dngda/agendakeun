@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.airmineral.agendakeun.ui.home.HomeViewModel" />
+            type="com.airmineral.agendakeun.ui.event.HomeViewModel" />
     </data>
 
     <ScrollView
@@ -19,7 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".ui.home.EventDetailFragment">
+            tools:context=".ui.event.EventDetailFragment">
 
             <ImageView
                 android:id="@+id/ic_0"

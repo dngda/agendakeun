@@ -1,4 +1,4 @@
-package com.airmineral.agendakeun.ui.home.create
+package com.airmineral.agendakeun.ui.event.create
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -23,7 +23,7 @@ class CreateEventFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_create_event, container, false)

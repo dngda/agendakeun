@@ -1,4 +1,4 @@
-package com.airmineral.agendakeun.ui.home.create
+package com.airmineral.agendakeun.ui.event.create
 
 import android.view.View
 import androidx.core.os.bundleOf
@@ -29,7 +29,7 @@ class CreateEventViewModel(
 ) : ViewModel() {
 
     private val currentUser = userRepository.getCurrentUser()
-    private val currentUserId = currentUser?.uid
+    private val currentUserId = currentUser.uid
     var isFromProfile = false
 
     val allUserList: Deferred<LiveData<List<User>>> by lazyDeferred {
@@ -42,7 +42,7 @@ class CreateEventViewModel(
 
     var groupName: String? = null
     val selectedUserId = mutableListOf<String>().apply {
-        add(currentUserId!!)
+        add(currentUserId)
     }
 
     var count = MutableLiveData<Int>().apply {
@@ -88,7 +88,7 @@ class CreateEventViewModel(
                     eventDateAndTime,
                     eventPlace,
                     eventDesc,
-                    currentUser?.displayName
+                    currentUser.displayName
                 )
             )
         }
