@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.airmineral.agendakeun.R
+import com.airmineral.agendakeun.databinding.ActivitySignInBinding
 import com.airmineral.agendakeun.ui.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -15,7 +17,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import kotlinx.android.synthetic.main.activity_sign_in.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInActivity : AppCompatActivity() {
@@ -26,12 +27,13 @@ class SignInActivity : AppCompatActivity() {
         const val RC_SIGN_IN = 123
     }
 
+    private lateinit var binding: ActivitySignInBinding
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_in)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in)
 
         auth = FirebaseAuth.getInstance()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -40,9 +42,9 @@ class SignInActivity : AppCompatActivity() {
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         googleSignInClient.signOut()
-        btn_welcome_sign_in.setOnClickListener {
+        binding.btnWelcomeSignIn.setOnClickListener {
             signIn()
-            btn_welcome_sign_in.isEnabled = false
+            binding.btnWelcomeSignIn.isEnabled = false
         }
 
     }
@@ -54,7 +56,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.id!!)
-        welcome_progressBar.visibility = View.VISIBLE
+        binding.welcomeProgressBar.visibility = View.VISIBLE
 
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         auth.signInWithCredential(credential)
@@ -73,12 +75,16 @@ class SignInActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Snackbar.make(root_sign_in, "Authentication Failed.", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(
+                        binding.rootSignIn,
+                        "Authentication Failed.",
+                        Snackbar.LENGTH_SHORT
+                    )
                         .show()
 
                 }
 
-                welcome_progressBar.visibility = View.INVISIBLE
+                binding.welcomeProgressBar.visibility = View.INVISIBLE
             }
     }
 
@@ -94,7 +100,7 @@ class SignInActivity : AppCompatActivity() {
             } catch (e: ApiException) {
                 // Google Sign In failed
                 Log.w(TAG, "Google sign in failed", e)
-                btn_welcome_sign_in.isEnabled = true
+                binding.btnWelcomeSignIn.isEnabled = true
             }
         }
     }

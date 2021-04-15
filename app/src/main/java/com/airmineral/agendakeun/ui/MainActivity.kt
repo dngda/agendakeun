@@ -21,6 +21,7 @@ class MainActivity() : AppCompatActivity() {
     }
 
     private val groupRepository: GroupRepository by inject()
+    private val firebaseInstance: FirebaseInstance by inject()
     private var currentNavController: LiveData<NavController>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +42,7 @@ class MainActivity() : AppCompatActivity() {
     private fun setupBottomNavigationBar() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.nav_view)
 
-        val navGraphIds = listOf(R.navigation.home, R.navigation.chatbot, R.navigation.profile)
+        val navGraphIds = listOf(R.navigation.dashboard, R.navigation.home, R.navigation.profile)
 
         val controller = bottomNavigationView.setupWithNavController(
             navGraphIds = navGraphIds,
@@ -63,7 +64,7 @@ class MainActivity() : AppCompatActivity() {
     private fun subscribeTopic() = Coroutines.main {
         groupRepository.getAllGroups()!!.observe(this, Observer {
             it.forEach { group ->
-                FirebaseInstance.fcmSubscribeToTopic(group.groupId!!)
+                firebaseInstance.fcmSubscribeToTopic(group.groupId!!)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Log.d(TAG, "subscribed to ${group.groupId!!}")

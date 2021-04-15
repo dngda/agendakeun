@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.core.os.bundleOf
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -11,13 +12,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.data.model.EventItem
+import com.airmineral.agendakeun.databinding.FragmentHomeBinding
 import com.airmineral.agendakeun.util.Coroutines
 import com.airmineral.agendakeun.util.setInvisible
 import com.airmineral.agendakeun.util.setVisible
 import com.airmineral.agendakeun.util.toEventItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
@@ -25,6 +26,7 @@ class HomeFragment : Fragment() {
         const val TAG = "Home Fragment"
     }
 
+    private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,18 +38,19 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val bundle = bundleOf("isFromProfile" to false)
-        btn_home_add.setOnClickListener {
+        binding.btnHomeAdd.setOnClickListener {
             it.findNavController()
                 .navigate(R.id.action_homeFragment_to_groupChooserFragment, bundle)
         }
-        fab.setOnClickListener {
+        binding.fab.setOnClickListener {
             it.findNavController()
                 .navigate(R.id.action_homeFragment_to_groupChooserFragment, bundle)
         }
@@ -70,9 +73,9 @@ class HomeFragment : Fragment() {
         try {
             viewModel.getEventListAsync().await().observe(viewLifecycleOwner, Observer {
                 initRecyclerView(it.toEventItem())
-                home_refresh.isRefreshing = false
+                binding.homeRefresh.isRefreshing = false
                 if (it.isEmpty()) {
-                    home_event_info.text = getString(R.string.tv_event_not_available)
+                    binding.homeEventInfo.text = getString(R.string.tv_event_not_available)
                     setViewVisible()
                 } else {
                     setViewInvisible()
@@ -90,7 +93,7 @@ class HomeFragment : Fragment() {
                 Log.d(TAG, it.toString())
 
                 if (it.isEmpty())
-                    home_event_info.text = getString(R.string.tv_event_not_available)
+                    binding.homeEventInfo.text = getString(R.string.tv_event_not_available)
                 else {
                     setViewInvisible()
                 }
@@ -106,12 +109,12 @@ class HomeFragment : Fragment() {
             addAll(eventItem)
         }
 
-        home_event_rv.apply {
+        binding.homeEventRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
         }
 
-        home_refresh.setOnRefreshListener {
+        binding.homeRefresh.setOnRefreshListener {
             updateUI()
             mAdapter.update(eventItem)
         }
@@ -125,14 +128,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun setViewInvisible() {
-        setInvisible(home_event_info)
-        setInvisible(home_event_art)
-        setInvisible(btn_home_add)
+        setInvisible(binding.homeEventInfo)
+        setInvisible(binding.homeEventArt)
+        setInvisible(binding.btnHomeAdd)
     }
 
     private fun setViewVisible() {
-        setVisible(home_event_info)
-        setVisible(home_event_art)
-        setVisible(btn_home_add)
+        setVisible(binding.homeEventInfo)
+        setVisible(binding.homeEventArt)
+        setVisible(binding.btnHomeAdd)
     }
 }

@@ -3,22 +3,21 @@ package com.airmineral.agendakeun.data.repositories
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.airmineral.agendakeun.data.FirebaseInstance.auth
-import com.airmineral.agendakeun.data.FirebaseInstance.userColRef
+import com.airmineral.agendakeun.data.FirebaseInstance
 import com.airmineral.agendakeun.data.model.User
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
 
-class UserRepository {
+class UserRepository(private val firebaseInstance: FirebaseInstance) {
     companion object {
         const val TAG = "User Repo"
     }
 
     suspend fun saveUser(user: LiveData<User>) {
         try {
-            userColRef.document(getCurrentUser()!!.uid).set(user.value!!).await()
+            firebaseInstance.userColRef.document(getCurrentUser().uid).set(user.value!!).await()
         } catch (e: FirebaseFirestoreException) {
             Log.d(TAG, e.message!!)
         }
@@ -26,7 +25,7 @@ class UserRepository {
 
     fun getUserData(): LiveData<User> {
         val res = MutableLiveData<User>()
-        userColRef.document(getCurrentUser()!!.uid).get()
+        firebaseInstance.userColRef.document(getCurrentUser().uid).get()
             .addOnSuccessListener {
                 if (it != null) {
                     res.postValue(it.toObject<User>())
@@ -38,21 +37,21 @@ class UserRepository {
         return res
     }
 
-    fun getCurrentUser(): FirebaseUser? {
-        return auth.currentUser
+    fun getCurrentUser(): FirebaseUser {
+        return firebaseInstance.auth.currentUser!!
     }
 
     fun signOut() {
-        auth.signOut()
+        firebaseInstance.auth.signOut()
     }
 
     suspend fun getAllUserList(): LiveData<List<User>>? {
         return try {
             val res = MutableLiveData<List<User>>()
             val userList = mutableListOf<User>()
-            userColRef.get().await().forEach {
-                if (it.id != getCurrentUser()!!.uid)
-                userList.add(it.toObject())
+            firebaseInstance.userColRef.get().await().forEach {
+                if (it.id != getCurrentUser().uid)
+                    userList.add(it.toObject())
             }
             res.postValue(userList)
             Log.d(TAG, res.value.toString())

@@ -15,7 +15,6 @@ import com.airmineral.agendakeun.data.preferences.PreferenceProvider
 import com.airmineral.agendakeun.databinding.FragmentEventDetailBinding
 import com.airmineral.agendakeun.notification.NotificationWorker
 import com.airmineral.agendakeun.util.toast
-import kotlinx.android.synthetic.main.fragment_event_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -28,7 +27,7 @@ class EventDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_event_detail, container, false)
@@ -58,10 +57,10 @@ class EventDetailFragment : Fragment() {
             eventTime
         }
         if (eventTime < 0L) {
-            switch_notification.isEnabled = false
+            binding.switchNotification.isEnabled = false
         }
-        switch_notification.setOnClickListener {
-            if (switch_notification.isChecked) {
+        binding.switchNotification.setOnClickListener {
+            if (binding.switchNotification.isChecked) {
                 PreferenceProvider(requireContext()).saveSwitchState(eventData.eventId!!, true)
                 val myWorkOneHourBefore = OneTimeWorkRequestBuilder<NotificationWorker>()
                     .setInitialDelay(eventNotificationTime, TimeUnit.MILLISECONDS)

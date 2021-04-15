@@ -5,7 +5,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 
-object FirebaseInstance {
+class FirebaseInstance {
     private val db = Firebase.firestore
     val auth = Firebase.auth
     val userColRef = db.collection("users")
