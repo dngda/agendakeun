@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.airmineral.agendakeun.ui.home.create.CreateEventViewModel" />
+            type="com.airmineral.agendakeun.ui.event.create.CreateEventViewModel" />
     </data>
 
     <ScrollView
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
-            tools:context=".ui.home.create.CreateEventFragment">
+            tools:context=".ui.event.create.CreateEventFragment">
 
             <TextView
                 android:id="@+id/info"

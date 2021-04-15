@@ -1,4 +1,4 @@
-package com.airmineral.agendakeun.ui.home.create
+package com.airmineral.agendakeun.ui.event.create
 
 import android.os.Bundle
 import android.util.Log
@@ -31,7 +31,7 @@ class GroupChooserFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_group_chooser, container, false)
         binding.lifecycleOwner = viewLifecycleOwner

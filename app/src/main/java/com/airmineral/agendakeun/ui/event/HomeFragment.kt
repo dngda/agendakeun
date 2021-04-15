@@ -1,4 +1,4 @@
-package com.airmineral.agendakeun.ui.home
+package com.airmineral.agendakeun.ui.event
 
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.data.model.EventItem
-import com.airmineral.agendakeun.databinding.FragmentHomeBinding
+import com.airmineral.agendakeun.databinding.FragmentEventBinding
 import com.airmineral.agendakeun.util.Coroutines
 import com.airmineral.agendakeun.util.setInvisible
 import com.airmineral.agendakeun.util.setVisible
@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
         const val TAG = "Home Fragment"
     }
 
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentEventBinding
     private val viewModel: HomeViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event, container, false)
         return binding.root
     }
 

@@ -5,8 +5,8 @@ import com.airmineral.agendakeun.data.FirebaseInstance
 import com.airmineral.agendakeun.data.repositories.EventRepository
 import com.airmineral.agendakeun.data.repositories.GroupRepository
 import com.airmineral.agendakeun.data.repositories.UserRepository
-import com.airmineral.agendakeun.ui.home.HomeViewModel
-import com.airmineral.agendakeun.ui.home.create.CreateEventViewModel
+import com.airmineral.agendakeun.ui.event.HomeViewModel
+import com.airmineral.agendakeun.ui.event.create.CreateEventViewModel
 import com.airmineral.agendakeun.ui.login.AuthViewModel
 import com.airmineral.agendakeun.ui.profile.ProfileViewModel
 import org.koin.android.ext.koin.androidContext

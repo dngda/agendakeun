@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/groupManager"
-        android:name="com.airmineral.agendakeun.ui.home.create.GroupChooserFragment"
+        android:name="com.airmineral.agendakeun.ui.event.create.GroupChooserFragment"
         android:label="Kelola Kelompok"
         tools:layout="@layout/fragment_group_chooser">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/groupCreatorFragment2"
-        android:name="com.airmineral.agendakeun.ui.home.create.GroupCreatorFragment"
+        android:name="com.airmineral.agendakeun.ui.event.create.GroupCreatorFragment"
         android:label="Buat Kelompok"
         tools:layout="@layout/fragment_group_creator">
         <action

@@ -1,4 +1,4 @@
-package com.airmineral.agendakeun.ui.home
+package com.airmineral.agendakeun.ui.event
 
 import android.os.Bundle
 import android.os.Parcelable
