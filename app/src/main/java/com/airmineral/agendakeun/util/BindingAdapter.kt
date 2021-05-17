@@ -28,10 +28,14 @@ fun loadImageAvatar(iv: ImageView, url: String?) {
 }
 
 @BindingAdapter("app:textEventDate")
-fun convertDate(view: TextView, mDate: Date) {
+fun convertDate(view: TextView, mDate: Date?) {
     val myFormat = "dd\nMMM"
     val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
-    view.text = sdf.format(mDate)
+    var date = ""
+    if (mDate !== null) {
+        date = sdf.format(mDate)
+    }
+    view.text = date
 }
 
 @SuppressLint("SetTextI18n")
@@ -39,7 +43,10 @@ fun convertDate(view: TextView, mDate: Date) {
 fun convertData(view: TextView, event: Event) {
     val myFormat = "HH:mm"
     val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
-    val date = sdf.format(event.date!!)
+    var date = ""
+    if (event.date !== null) {
+        date = sdf.format(event.date!!)
+    }
     view.text = "$date at ${event.place!!}"
 }
 

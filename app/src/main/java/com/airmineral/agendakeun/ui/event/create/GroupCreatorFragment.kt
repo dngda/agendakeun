@@ -8,24 +8,23 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.data.model.UserItem
 import com.airmineral.agendakeun.databinding.FragmentGroupCreatorBinding
+import com.airmineral.agendakeun.databinding.ItemGroupCreatorBinding
 import com.airmineral.agendakeun.util.Coroutines
 import com.airmineral.agendakeun.util.setInvisible
 import com.airmineral.agendakeun.util.setVisible
 import com.airmineral.agendakeun.util.toUserItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.fragment_group_creator.*
-import kotlinx.android.synthetic.main.item_group_creator.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GroupCreatorFragment : Fragment() {
     private val viewModel: CreateEventViewModel by viewModel()
     private lateinit var binding: FragmentGroupCreatorBinding
+    private lateinit var itemBinding: ItemGroupCreatorBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,10 +47,10 @@ class GroupCreatorFragment : Fragment() {
 
     private fun bindUI() = Coroutines.main {
         try {
-            viewModel.allUserList.await().observe(viewLifecycleOwner, Observer {
+            viewModel.allUserList.await().observe(viewLifecycleOwner, {
                 initRecyclerView(it.toUserItem())
 
-                setInvisible(tv_gct_errorInfo)
+                setInvisible(binding.tvGctErrorInfo)
             })
         } catch (e: Exception) {
             Log.d("GCTF", e.message!!)
@@ -63,16 +62,17 @@ class GroupCreatorFragment : Fragment() {
             addAll(userItem)
         }
 
-        rv_gct.apply {
+        binding.rvGct.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
         }
 
         mAdapter.setOnItemClickListener { item, view ->
+            itemBinding = DataBindingUtil.getBinding(view)!!
             val itemData = item as UserItem
-            if (view.gct_checked.visibility == View.INVISIBLE) {
-                setVisible(view.gct_checked)
-                view.item_gct_background.setBackgroundColor(
+            if (itemBinding.gctChecked.visibility == View.INVISIBLE) {
+                setVisible(itemBinding.gctChecked)
+                itemBinding.itemGctBackground.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.colorPrimaryVeryLight
@@ -82,8 +82,8 @@ class GroupCreatorFragment : Fragment() {
                 viewModel.selectedUserId.add(itemData.user.uid!!)
                 viewModel.count.value = viewModel.selectedUserId.size
             } else {
-                setInvisible(view.gct_checked)
-                view.item_gct_background.background = null
+                setInvisible(itemBinding.gctChecked)
+                itemBinding.itemGctBackground.background = null
 
                 viewModel.selectedUserId.remove(itemData.user.uid!!)
                 viewModel.count.value = viewModel.selectedUserId.size

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#9C4DCC</color>
-    <color name="colorPrimaryLight">#B46FDC</color>
+    <color name="colorPrimary">#760FD0</color>
+    <color name="colorPrimaryLight">#9013FE</color>
     <color name="colorPrimaryVeryLight">#EFD4FF</color>
     <color name="colorPrimaryDark">#6A1B9A</color>
     <color name="colorPrimaryVeryDark">#38006B</color>
-    <color name="colorAccent">#6A1B9A</color>
+    <color name="colorSecondary">#0062FC</color>
+    <color name="colorSecondaryDark">#0051B2</color>
+    <color name="colorSecondaryVeryDark">#224179</color>
+    <color name="colorAccent">#F5A828</color>
 
     <drawable name="selectedUser">@color/colorPrimaryVeryLight</drawable>
 </resources>

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airmineral.agendakeun.R
@@ -19,7 +18,6 @@ import com.airmineral.agendakeun.util.setInvisible
 import com.airmineral.agendakeun.util.toGroupItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.fragment_group_chooser.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GroupChooserFragment : Fragment() {
@@ -45,7 +43,7 @@ class GroupChooserFragment : Fragment() {
         bindUI()
         isFromProfile = arguments?.getBoolean("isFromProfile", false)!!
 
-        btn_gch_create.setOnClickListener {
+        binding.btnGchCreate.setOnClickListener {
             if (isFromProfile) {
                 val bundle = bundleOf("isFromProfile" to true)
                 it.findNavController()
@@ -60,14 +58,14 @@ class GroupChooserFragment : Fragment() {
 
     private fun bindUI() = Coroutines.main {
         try {
-            viewModel.allGroupList.await().observe(viewLifecycleOwner, Observer {
+            viewModel.allGroupList.await().observe(viewLifecycleOwner, {
                 initRecyclerView(it.toGroupItem())
                 Log.d("Chooser Fragment", it.toString())
 
                 if (it.isEmpty())
-                    tv_gch_errorInfo.text = getString(R.string.not_available)
+                    binding.tvGchErrorInfo.text = getString(R.string.not_available)
                 else
-                    setInvisible(tv_gch_errorInfo)
+                    setInvisible(binding.tvGchErrorInfo)
             })
         } catch (e: Exception) {
             Log.d("Chooser Fragment", e.message!!)
@@ -79,7 +77,7 @@ class GroupChooserFragment : Fragment() {
             addAll(groupItem)
         }
 
-        rv_gch.apply {
+        binding.rvGch.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
         }

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.airmineral.agendakeun.data.FirebaseInstance
 import com.airmineral.agendakeun.data.model.Group
 import com.airmineral.agendakeun.data.model.User
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
@@ -15,9 +16,15 @@ class GroupRepository(private val firebaseInstance: FirebaseInstance) {
         const val TAG = "Group Repo"
     }
 
-    suspend fun saveGroup(groupData: Group): Boolean {
+    fun saveGroup(groupData: Group, userList: List<String>): Boolean {
         return try {
-            firebaseInstance.groupColRef.document().set(groupData).await()
+            firebaseInstance.groupColRef.add(groupData)
+                .addOnSuccessListener { doc ->
+                    userList.forEach { user ->
+                        firebaseInstance.userColRef.document(user)
+                            .update("groupList", FieldValue.arrayUnion(doc))
+                    }
+                }
             true
         } catch (e: FirebaseFirestoreException) {
             Log.d(UserRepository.TAG, e.message!!)

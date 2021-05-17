@@ -16,7 +16,15 @@ class PreferenceProvider(
         preference.edit().putBoolean(eventId, state).apply()
     }
 
-    fun getSwitchState(eventId: String): Boolean? {
+    fun getSwitchState(eventId: String): Boolean {
         return preference.getBoolean(eventId, false)
+    }
+
+    fun saveUserGroupList(userId: String, groupList: List<String>) {
+        return preference.edit().putStringSet(userId, groupList.toSet()).apply()
+    }
+
+    fun getUserGroupList(userId: String): List<String> {
+        return preference.getStringSet(userId, null)!!.toList()
     }
 }

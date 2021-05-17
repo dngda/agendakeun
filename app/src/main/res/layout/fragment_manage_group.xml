@@ -31,7 +31,7 @@
             android:paddingEnd="20dp"
             android:text="@={viewModel.groupData.name}"
             android:textColor="@android:color/black"
-            android:textColorHint="@color/colorPrimaryLight"
+            android:textColorHint="@color/colorPrimaryDark"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

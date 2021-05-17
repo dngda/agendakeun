@@ -25,15 +25,16 @@ class UserRepository(private val firebaseInstance: FirebaseInstance) {
 
     fun getUserData(): LiveData<User> {
         val res = MutableLiveData<User>()
-        firebaseInstance.userColRef.document(getCurrentUser().uid).get()
-            .addOnSuccessListener {
-                if (it != null) {
-                    res.postValue(it.toObject<User>())
-                }
+        val docsRef = firebaseInstance.userColRef.document(getCurrentUser().uid)
+        docsRef.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+            if (documentSnapshot != null && documentSnapshot.exists()) {
+                res.postValue(documentSnapshot.toObject<User>())
             }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "get failed with ", exception)
+            if (firebaseFirestoreException != null) {
+                Log.w(TAG, "get failed with ", firebaseFirestoreException)
+                return@addSnapshotListener
             }
+        }
         return res
     }
 
@@ -47,15 +48,14 @@ class UserRepository(private val firebaseInstance: FirebaseInstance) {
 
     suspend fun getAllUserList(): LiveData<List<User>>? {
         return try {
-            val res = MutableLiveData<List<User>>()
+            val results = MutableLiveData<List<User>>()
             val userList = mutableListOf<User>()
             firebaseInstance.userColRef.get().await().forEach {
                 if (it.id != getCurrentUser().uid)
                     userList.add(it.toObject())
             }
-            res.postValue(userList)
-            Log.d(TAG, res.value.toString())
-            res
+            results.postValue(userList)
+            results
         } catch (e: Exception) {
             Log.d(TAG, e.message!!)
             null

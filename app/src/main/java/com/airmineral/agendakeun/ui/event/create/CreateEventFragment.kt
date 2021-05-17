@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.databinding.FragmentCreateEventBinding
 import com.airmineral.agendakeun.util.toast
-import kotlinx.android.synthetic.main.fragment_create_event.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -56,7 +55,7 @@ class CreateEventFragment : Fragment() {
                 if (cal.time < curDate) {
                     requireContext().toast("Kamu tidak bisa membuat agenda untuk masa lalu!")
                 } else {
-                    new_event_date.setText(sdf.format(cal.time))
+                    binding.newEventDate.setText(sdf.format(cal.time))
                     viewModel.eventDateAndTime = cal.time
                 }
             }
@@ -69,7 +68,7 @@ class CreateEventFragment : Fragment() {
                 if (cal.time < curDate) {
                     requireContext().toast("Kamu tidak bisa membuat agenda untuk masa lalu!")
                 } else {
-                    new_event_time.setText(
+                    binding.newEventTime.setText(
                         SimpleDateFormat(
                             "HH:mm z",
                             Locale.getDefault()
@@ -79,7 +78,7 @@ class CreateEventFragment : Fragment() {
                 }
             }
 
-        new_event_date.setOnClickListener {
+        binding.newEventDate.setOnClickListener {
             DatePickerDialog(
                 it.context, dateSetListener,
                 cal.get(Calendar.YEAR),
@@ -88,7 +87,7 @@ class CreateEventFragment : Fragment() {
             ).show()
         }
 
-        new_event_time.setOnClickListener {
+        binding.newEventTime.setOnClickListener {
             TimePickerDialog(
                 it.context,
                 timeSetListener,

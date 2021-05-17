@@ -5,6 +5,7 @@ import com.airmineral.agendakeun.data.FirebaseInstance
 import com.airmineral.agendakeun.data.repositories.EventRepository
 import com.airmineral.agendakeun.data.repositories.GroupRepository
 import com.airmineral.agendakeun.data.repositories.UserRepository
+import com.airmineral.agendakeun.ui.dashboard.DashboardViewModel
 import com.airmineral.agendakeun.ui.event.HomeViewModel
 import com.airmineral.agendakeun.ui.event.create.CreateEventViewModel
 import com.airmineral.agendakeun.ui.login.AuthViewModel
@@ -25,12 +26,13 @@ class App : Application() {
                 single { FirebaseInstance() }
                 single { UserRepository(get()) }
                 single { GroupRepository(get()) }
-                single { EventRepository(get()) }
+                single { EventRepository(get(), get()) }
 
                 viewModel { ProfileViewModel(get(), get()) }
                 viewModel { AuthViewModel(get()) }
                 viewModel { CreateEventViewModel(get(), get(), get()) }
                 viewModel { HomeViewModel(get()) }
+                viewModel { DashboardViewModel() }
             })
         }
     }
