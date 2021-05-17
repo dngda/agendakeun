@@ -46,4 +46,5 @@
     <string name="group_manage_count">%d Anggota</string>
     <string name="menu_edit">Edit</string>
     <string name="fab_cd">fab</string>
+    <string name="upcoming_event_info">Upcoming Event:</string>
 </resources>

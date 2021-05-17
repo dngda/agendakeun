@@ -51,7 +51,6 @@
                 android:paddingEnd="20dp"
                 android:text="@={viewModel.groupData.name}"
                 android:textColor="@android:color/black"
-                android:textColorHint="@color/colorPrimaryLight"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/info" />
@@ -72,7 +71,6 @@
                 android:paddingEnd="20dp"
                 android:text="@={viewModel.eventName}"
                 android:textColor="@android:color/black"
-                android:textColorHint="@color/colorPrimaryLight"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/new_event_group_name" />
@@ -94,7 +92,6 @@
                 android:paddingStart="28dp"
                 android:paddingEnd="20dp"
                 android:textColor="@android:color/black"
-                android:textColorHint="@color/colorPrimaryLight"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/new_event_name" />
@@ -115,7 +112,6 @@
                 android:paddingStart="28dp"
                 android:paddingEnd="20dp"
                 android:textColor="@android:color/black"
-                android:textColorHint="@color/colorPrimaryLight"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/new_event_date" />
@@ -136,7 +132,6 @@
                 android:paddingEnd="20dp"
                 android:text="@={viewModel.eventPlace}"
                 android:textColor="@android:color/black"
-                android:textColorHint="@color/colorPrimaryLight"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/new_event_time" />
@@ -160,7 +155,6 @@
                 android:paddingEnd="20dp"
                 android:text="@={viewModel.eventDesc}"
                 android:textColor="@android:color/black"
-                android:textColorHint="@color/colorPrimaryLight"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/new_event_place" />

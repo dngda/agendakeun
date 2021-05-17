@@ -67,7 +67,6 @@
             android:paddingEnd="20dp"
             android:text="@={viewModel.user.email}"
             android:textColor="@android:color/black"
-            android:textColorHint="@color/colorPrimaryLight"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/csi_hint"
@@ -87,7 +86,6 @@
             android:paddingEnd="20dp"
             android:text="@={viewModel.user.name}"
             android:textColor="@android:color/black"
-            android:textColorHint="@color/colorPrimaryLight"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_csi_email" />
@@ -106,7 +104,6 @@
             android:paddingEnd="20dp"
             android:text="@={viewModel.user.position}"
             android:textColor="@android:color/black"
-            android:textColorHint="@color/colorPrimaryLight"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_csi_name" />

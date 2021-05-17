@@ -1,17 +1,22 @@
 package com.airmineral.agendakeun.data.repositories
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.airmineral.agendakeun.data.FirebaseInstance
 import com.airmineral.agendakeun.data.model.Event
 import com.airmineral.agendakeun.data.model.Group
+import com.airmineral.agendakeun.data.preferences.PreferenceProvider
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
 import java.util.*
 
-class EventRepository(private val firebaseInstance: FirebaseInstance) {
+class EventRepository(
+    private val firebaseInstance: FirebaseInstance,
+    private val context: Context
+) {
     companion object {
         const val TAG = "Event Repo"
     }
@@ -27,17 +32,18 @@ class EventRepository(private val firebaseInstance: FirebaseInstance) {
     suspend fun getAllEventList(): LiveData<List<Event>>? {
         return try {
             val allEventList = MutableLiveData<List<Event>>()
-            val groupList = mutableListOf<Group>()
             val currentUserID = firebaseInstance.auth.currentUser?.uid
-            val field = "userList.$currentUserID"
             val curDate = Calendar.getInstance().time
-            firebaseInstance.groupColRef.whereEqualTo(field, true)
-                .get().await().forEach {
-                    groupList.add(it.toObject())
-                }
+//            val field = "userList.$currentUserID"
+//            firebaseInstance.groupColRef.whereEqualTo(field, true)
+//                .get().await().forEach {
+//                    groupList.add(it.toObject())
+//                }
+            val groupList: List<String> =
+                PreferenceProvider(context).getUserGroupList(currentUserID!!)
             val eventList = mutableListOf<Event>()
             groupList.forEach {
-                firebaseInstance.groupEventColRef(it.groupId!!)
+                firebaseInstance.groupEventColRef(it)
                     .whereGreaterThanOrEqualTo("date", curDate)
                     .get().await().forEach { its ->
                         eventList.add(its.toObject())

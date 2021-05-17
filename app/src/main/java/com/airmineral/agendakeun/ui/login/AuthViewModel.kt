@@ -27,7 +27,8 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
             currentUser!!.displayName,
             currentUser!!.email,
             currentUser!!.photoUrl.toString(),
-            ""
+            "",
+            null
         )
     }
 

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.databinding.FragmentProfileBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,14 +18,14 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         binding.viewModel = profileViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        profileViewModel.user.observe(viewLifecycleOwner, Observer {
+        profileViewModel.user.observe(viewLifecycleOwner, {
             if (it.name != "") {
                 binding.isLoaded = true
             }

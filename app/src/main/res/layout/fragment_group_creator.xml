@@ -29,7 +29,6 @@
             android:paddingEnd="20dp"
             android:text="@={viewModel.groupName}"
             android:textColor="@android:color/black"
-            android:textColorHint="@color/colorPrimaryLight"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +48,6 @@
             android:paddingStart="25dp"
             android:paddingEnd="20dp"
             android:textColor="@android:color/black"
-            android:textColorHint="@color/colorPrimaryLight"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_gct_name" />

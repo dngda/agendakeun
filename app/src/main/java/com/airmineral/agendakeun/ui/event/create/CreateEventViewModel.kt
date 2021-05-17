@@ -54,9 +54,11 @@ class CreateEventViewModel(
             it to true
         }.toMap()
 
-        viewModelScope.launch {
-            groupRepository.saveGroup(Group(null, groupName, mapSelectedData))
-        }
+        groupRepository.saveGroup(
+            Group(null, groupName, mapSelectedData, currentUserId),
+            selectedUserId
+        )
+
         view.context.toast("Berhasil Disimpan!")
         if (isFromProfile) {
             val bundle = bundleOf("isFromProfile" to true)
@@ -70,7 +72,6 @@ class CreateEventViewModel(
     }
 
     val groupData = MutableLiveData<Group>()
-
     var eventName: String? = null
     var eventPlace: String? = null
     var eventDesc: String? = null
@@ -87,6 +88,7 @@ class CreateEventViewModel(
                     eventName,
                     eventDateAndTime,
                     eventPlace,
+                    null,
                     eventDesc,
                     currentUser.displayName
                 )
