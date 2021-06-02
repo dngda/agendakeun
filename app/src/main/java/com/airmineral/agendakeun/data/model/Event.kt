@@ -2,8 +2,7 @@ package com.airmineral.agendakeun.data.model
 
 import android.os.Parcelable
 import com.google.firebase.firestore.DocumentId
-import com.google.firebase.firestore.GeoPoint
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
@@ -15,7 +14,7 @@ data class Event(
     var name: String? = null,
     var date: Date? = null,
     var place: String? = null,
-    var googleMaps: GeoPoint? = null,
+    var googleMaps: String? = null,
     var desc: String? = null,
     var creator: String? = null
 ) : Parcelable {

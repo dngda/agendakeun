@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.airmineral.agendakeun.data.FirebaseInstance
 import com.airmineral.agendakeun.data.model.Event
-import com.airmineral.agendakeun.data.model.Group
 import com.airmineral.agendakeun.data.preferences.PreferenceProvider
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.toObject
@@ -34,19 +33,14 @@ class EventRepository(
             val allEventList = MutableLiveData<List<Event>>()
             val currentUserID = firebaseInstance.auth.currentUser?.uid
             val curDate = Calendar.getInstance().time
-//            val field = "userList.$currentUserID"
-//            firebaseInstance.groupColRef.whereEqualTo(field, true)
-//                .get().await().forEach {
-//                    groupList.add(it.toObject())
-//                }
             val groupList: List<String> =
                 PreferenceProvider(context).getUserGroupList(currentUserID!!)
             val eventList = mutableListOf<Event>()
-            groupList.forEach {
-                firebaseInstance.groupEventColRef(it)
+            groupList.forEach { groupId ->
+                firebaseInstance.groupEventColRef(groupId)
                     .whereGreaterThanOrEqualTo("date", curDate)
-                    .get().await().forEach { its ->
-                        eventList.add(its.toObject())
+                    .get().await().forEach { event ->
+                        eventList.add(event.toObject())
                     }
             }
             eventList.sortBy { it.date }
@@ -61,18 +55,14 @@ class EventRepository(
     suspend fun getPastEventList(): LiveData<List<Event>>? {
         return try {
             val allEventList = MutableLiveData<List<Event>>()
-            val groupList = mutableListOf<Group>()
             val currentUserID = firebaseInstance.auth.currentUser?.uid
-            val field = "userList.$currentUserID"
-            firebaseInstance.groupColRef.whereEqualTo(field, true)
-                .get().await().forEach {
-                    groupList.add(it.toObject())
-                }
+            val groupList: List<String> =
+                PreferenceProvider(context).getUserGroupList(currentUserID!!)
             val eventList = mutableListOf<Event>()
-            groupList.forEach {
-                firebaseInstance.groupEventColRef(it.groupId!!)
-                    .get().await().forEach { its ->
-                        eventList.add(its.toObject())
+            groupList.forEach { groupId ->
+                firebaseInstance.groupEventColRef(groupId)
+                    .get().await().forEach { event ->
+                        eventList.add(event.toObject())
                     }
             }
             eventList.sortByDescending { it.date }

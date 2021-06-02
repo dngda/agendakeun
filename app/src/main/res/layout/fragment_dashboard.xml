@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="isLoaded"
+            type="java.lang.Boolean" />
+
+        <variable
             name="viewModel"
             type="com.airmineral.agendakeun.ui.dashboard.DashboardViewModel" />
     </data>
@@ -24,6 +28,7 @@
             android:background="@drawable/ic_user"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:loadAvatarWithGlide="@{viewModel.user.avatar}"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -42,7 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text=""
+            android:text="@{isLoaded ? viewModel.user.name : `Loading...`}"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@id/dashboard_avatar"
@@ -61,6 +66,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dashboard_avatar" />
 
+        <!--        TODO: SET IF NO UPCOMING-->
         <androidx.cardview.widget.CardView
             android:id="@+id/card_upEvent"
             android:layout_width="match_parent"
@@ -69,10 +75,11 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="3dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_info_upEvent">
+            app:layout_constraintTop_toBottomOf="@id/tv_info_upEvent"
+            tools:visibility="invisible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -87,7 +94,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/seguisb"
-                    android:text="@{viewModel.event.groupName}"
+                    android:text="@{viewModel.upEvent.groupName}"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     android:textStyle="italic"
@@ -106,7 +113,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/seguisb"
                     android:maxLines="1"
-                    android:text="@{viewModel.event.name}"
+                    android:text="@{viewModel.upEvent.name}"
                     android:textColor="@android:color/white"
                     android:textSize="21sp"
                     app:layout_constraintEnd_toStartOf="@id/item_event_date"
@@ -126,7 +133,7 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:textPlaceAndTime="@{viewModel.event}"
+                    app:textPlaceAndTime="@{viewModel.upEvent}"
                     tools:text="12.30 - Beskem Infinite" />
 
                 <TextView
@@ -140,7 +147,7 @@
                     android:textSize="23sp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:textEventDate="@{viewModel.event.date}"
+                    app:textEventDate="@{viewModel.upEvent.date}"
                     tools:text="17\nSEP" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -216,7 +223,7 @@
             android:layout_height="70dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            app:cardCornerRadius="3dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toStartOf="@id/card_total"
             app:layout_constraintStart_toEndOf="@id/card_passed"
             app:layout_constraintTop_toBottomOf="@id/stat_info">
@@ -269,7 +276,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:cardCornerRadius="3dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/card_next"
             app:layout_constraintTop_toBottomOf="@id/stat_info">

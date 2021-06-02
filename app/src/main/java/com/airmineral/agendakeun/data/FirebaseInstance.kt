@@ -12,5 +12,5 @@ class FirebaseInstance {
     val groupColRef = db.collection("groups")
     fun groupEventColRef(groupId: String) = groupColRef.document(groupId).collection("events")
     fun fcmSubscribeToTopic(topic: String) =
-        FirebaseMessaging.getInstance().subscribeToTopic("/topics/$topic")
+        FirebaseMessaging.getInstance().subscribeToTopic(topic)
 }

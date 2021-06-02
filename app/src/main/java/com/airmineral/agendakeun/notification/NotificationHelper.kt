@@ -35,7 +35,7 @@ fun sendNotificationToServer(context: Context, topic: String, title: String, mes
     try {
         notificationBody.put("title", title)
         notificationBody.put("message", message)
-        notification.put("to", "/topics/$topic")
+        notification.put("to", topic)
         notification.put("data", notificationBody)
         Log.e(TAG, "try")
     } catch (e: JSONException) {

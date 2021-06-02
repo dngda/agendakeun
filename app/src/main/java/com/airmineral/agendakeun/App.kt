@@ -14,6 +14,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 import org.koin.dsl.module
 
 class App : Application() {
@@ -21,8 +22,9 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            androidLogger()
-            modules(module {
+            androidLogger(Level.ERROR)
+
+            val koinModules = module {
                 single { FirebaseInstance() }
                 single { UserRepository(get()) }
                 single { GroupRepository(get()) }
@@ -32,8 +34,11 @@ class App : Application() {
                 viewModel { AuthViewModel(get()) }
                 viewModel { CreateEventViewModel(get(), get(), get()) }
                 viewModel { HomeViewModel(get()) }
-                viewModel { DashboardViewModel() }
-            })
+                viewModel { DashboardViewModel(get()) }
+            }
+
+            koin.loadModules(listOf(koinModules))
+            koin.createRootScope()
         }
     }
 }
