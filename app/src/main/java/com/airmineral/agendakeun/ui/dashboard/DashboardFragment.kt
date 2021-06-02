@@ -22,6 +22,13 @@ class DashboardFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard, container, false)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        viewModel.user.observe(viewLifecycleOwner, {
+            if (it.name != "") {
+                binding.isLoaded = true
+            }
+        })
         return binding.root
     }
 }

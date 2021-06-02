@@ -10,7 +10,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.data.FirebaseInstance
 import com.airmineral.agendakeun.data.preferences.PreferenceProvider
-import com.airmineral.agendakeun.data.repositories.GroupRepository
 import com.airmineral.agendakeun.data.repositories.UserRepository
 import com.airmineral.agendakeun.util.Coroutines
 import com.airmineral.agendakeun.util.setupWithNavController
@@ -22,7 +21,6 @@ class MainActivity() : AppCompatActivity() {
         const val TAG = "MainActivity"
     }
 
-    private val groupRepository: GroupRepository by inject()
     private val userRepository: UserRepository by inject()
     private val firebaseInstance: FirebaseInstance by inject()
     private var currentNavController: LiveData<NavController>? = null
@@ -69,13 +67,20 @@ class MainActivity() : AppCompatActivity() {
 
     private fun subscribeTopic() = Coroutines.main {
         userRepository.getUserData().observe(this, { user ->
-            PreferenceProvider(this).saveUserGroupList(user.uid!!, user.groupList!!)
-            user.groupList!!.forEach { group ->
+            val groupList = mutableListOf<String>()
+            if (user.groupList !== null) {
+                groupList.addAll(user.groupList!!)
+            }
+            Log.d("USER GROUP LIST", user.groupList.toString())
+            PreferenceProvider(this).saveUserGroupList(user.uid!!, groupList)
+            groupList.forEach { group ->
                 firebaseInstance.fcmSubscribeToTopic(group)
                     .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Log.d(TAG, "subscribed to $group")
+                        var msg = "subscribed to $group"
+                        if (!task.isSuccessful) {
+                            msg = "failed to subscribe with $group"
                         }
+                        Log.d(TAG, msg)
                     }
             }
         })
