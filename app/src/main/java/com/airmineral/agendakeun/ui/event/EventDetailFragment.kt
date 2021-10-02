@@ -76,11 +76,11 @@ class EventDetailFragment : Fragment() {
 
                 WorkManager.getInstance(requireContext()).enqueue(myWorkOneHourBefore)
                 WorkManager.getInstance(requireContext()).enqueue(myWorkAtEventTime)
-                requireContext().toast("Notification on.")
+                requireContext().toast("Notification on")
             } else {
                 PreferenceProvider(requireContext()).saveSwitchState(eventData.eventId!!, false)
                 WorkManager.getInstance(requireContext()).cancelAllWorkByTag(eventData.eventId!!)
-                requireContext().toast("Notification off.")
+                requireContext().toast("Notification off")
             }
         }
 
