@@ -30,14 +30,14 @@
                 android:labelFor="@id/new_event_group_name"
                 android:text="@string/event_kelompok_terkait"
                 android:textColor="@android:color/black"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/new_event_group_name"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/edit_text_height"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="16dp"
@@ -51,14 +51,14 @@
                 android:paddingEnd="20dp"
                 android:text="@={viewModel.groupData.name}"
                 android:textColor="@android:color/black"
-                android:textSize="22sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/info" />
 
             <EditText
                 android:id="@+id/new_event_name"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/edit_text_height"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
@@ -71,7 +71,7 @@
                 android:paddingEnd="20dp"
                 android:text="@={viewModel.eventName}"
                 android:textColor="@android:color/black"
-                android:textSize="22sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/new_event_group_name" />
 
@@ -79,7 +79,7 @@
             <EditText
                 android:id="@+id/new_event_date"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/edit_text_height"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
@@ -92,14 +92,14 @@
                 android:paddingStart="28dp"
                 android:paddingEnd="20dp"
                 android:textColor="@android:color/black"
-                android:textSize="22sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/new_event_name" />
 
             <EditText
                 android:id="@+id/new_event_time"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/edit_text_height"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
@@ -112,14 +112,14 @@
                 android:paddingStart="28dp"
                 android:paddingEnd="20dp"
                 android:textColor="@android:color/black"
-                android:textSize="22sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/new_event_date" />
 
             <EditText
                 android:id="@+id/new_event_place"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/edit_text_height"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
@@ -132,10 +132,28 @@
                 android:paddingEnd="20dp"
                 android:text="@={viewModel.eventPlace}"
                 android:textColor="@android:color/black"
-                android:textSize="22sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/new_event_time" />
 
+            <EditText
+                android:id="@+id/new_event_maps"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/et_rounded"
+                android:fontFamily="@font/seguisb"
+                android:hint="Lokasi (opsional)"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences"
+                android:paddingStart="28dp"
+                android:paddingEnd="20dp"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/new_event_place" />
 
             <EditText
                 android:id="@+id/new_event_desc"
@@ -155,14 +173,14 @@
                 android:paddingEnd="20dp"
                 android:text="@={viewModel.eventDesc}"
                 android:textColor="@android:color/black"
-                android:textSize="22sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/new_event_place" />
+                app:layout_constraintTop_toBottomOf="@id/new_event_maps" />
 
             <Button
                 android:id="@+id/new_event_save"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_margin="@dimen/activity_horizontal_margin"
                 android:background="@drawable/btn_style"
                 android:fontFamily="@font/seguisb"
@@ -170,7 +188,7 @@
                 android:text="@string/btn_save"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/new_event_desc" />
 

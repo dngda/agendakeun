@@ -22,7 +22,7 @@ class GroupRepository(private val firebaseInstance: FirebaseInstance) {
                 .addOnSuccessListener { doc ->
                     userList.forEach { user ->
                         firebaseInstance.userColRef.document(user)
-                            .update("groupList", FieldValue.arrayUnion(doc))
+                            .update("groupList", FieldValue.arrayUnion(doc.id))
                     }
                 }
             true

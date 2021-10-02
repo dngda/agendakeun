@@ -50,6 +50,7 @@ class CreateEventViewModel(
     }
 
     fun onSaveGroupBtnClick(view: View) {
+        if (groupName.isNullOrEmpty()) return view.context.toast("Nama group tidak boleh kosong!")
         val mapSelectedData = selectedUserId.map {
             it to true
         }.toMap()
@@ -78,6 +79,8 @@ class CreateEventViewModel(
     var eventDateAndTime: Date? = null
 
     fun onSaveEventBtnClick(view: View) {
+        if (eventName.isNullOrEmpty()) return view.context.toast("Nama kegiatan tidak boleh kosong!")
+
         viewModelScope.launch {
             eventRepository.saveGroupEvent(
                 groupData.value?.groupId!!,
