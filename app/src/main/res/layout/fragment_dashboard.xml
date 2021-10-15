@@ -6,7 +6,15 @@
     <data>
 
         <variable
-            name="isLoaded"
+            name="isUserLoaded"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="isAllStatLoaded"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="isNextLoaded"
             type="java.lang.Boolean" />
 
         <variable
@@ -47,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@{isLoaded ? viewModel.user.name : `Loading...`}"
+            android:text="@{isUserLoaded ? viewModel.user.name : `Loading...`}"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@id/dashboard_avatar"
@@ -79,7 +87,7 @@
             app:cardElevation="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_info_upEvent"
-            tools:visibility="invisible">
+            tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -113,7 +121,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/seguisb"
                     android:maxLines="1"
-                    android:text="@{viewModel.upEvent.name}"
+                    android:text="@{isNextLoaded ? viewModel.upEvent.name : `Loading...`}"
                     android:textColor="@android:color/white"
                     android:textSize="21sp"
                     app:layout_constraintEnd_toStartOf="@id/item_event_date"
@@ -141,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:layout_marginEnd="0dp"
                     android:fontFamily="@font/seguisb"
                     android:textColor="@android:color/white"
                     android:textSize="23sp"
@@ -207,7 +215,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:text="00"
+                    android:text="@{isAllStatLoaded ? viewModel.statPassedEvent : `--`}"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -259,7 +267,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:text="00"
+                    android:text="@{isNextLoaded ? viewModel.statNextEvent : `--`}"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -312,7 +320,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:text="00"
+                    android:text="@{isAllStatLoaded ? viewModel.statAllEvent : `--`}"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"

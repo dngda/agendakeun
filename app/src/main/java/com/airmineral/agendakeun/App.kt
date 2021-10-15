@@ -34,7 +34,7 @@ class App : Application() {
                 viewModel { AuthViewModel(get()) }
                 viewModel { CreateEventViewModel(get(), get(), get()) }
                 viewModel { HomeViewModel(get()) }
-                viewModel { DashboardViewModel(get()) }
+                viewModel { DashboardViewModel(get(), get()) }
             }
 
             koin.loadModules(listOf(koinModules))

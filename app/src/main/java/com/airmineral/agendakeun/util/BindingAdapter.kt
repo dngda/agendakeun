@@ -40,14 +40,16 @@ fun convertDate(view: TextView, mDate: Date?) {
 
 @SuppressLint("SetTextI18n")
 @BindingAdapter("app:textPlaceAndTime")
-fun convertData(view: TextView, event: Event) {
+fun convertData(view: TextView, event: Event?) {
     val myFormat = "HH:mm"
     val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
-    var date = ""
-    if (event.date !== null) {
+    var date: String? = null
+    if (event !== null) {
         date = sdf.format(event.date!!)
+        view.text = "$date at ${event.place}"
+    } else {
+        view.text = ""
     }
-    view.text = "$date at ${event.place!!}"
 }
 
 @BindingAdapter("app:textEventDetailDate")
