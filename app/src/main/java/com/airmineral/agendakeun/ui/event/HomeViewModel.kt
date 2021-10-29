@@ -13,7 +13,7 @@ import kotlinx.coroutines.async
 class HomeViewModel(private val eventRepository: EventRepository) : ViewModel() {
 
     val eventList: Deferred<LiveData<List<Event>>> by lazyDeferred {
-        eventRepository.getAllEventList()!!
+        eventRepository.getCurEventList()!!
     }
 
     val pastEventList: Deferred<LiveData<List<Event>>> by lazyDeferred {
@@ -23,7 +23,7 @@ class HomeViewModel(private val eventRepository: EventRepository) : ViewModel() 
 
     fun getEventListAsync(): Deferred<LiveData<List<Event>>> {
         return viewModelScope.async {
-            eventRepository.getAllEventList()!!
+            eventRepository.getCurEventList()!!
         }
     }
 

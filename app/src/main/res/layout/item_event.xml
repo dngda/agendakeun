@@ -82,7 +82,8 @@
                 android:fontFamily="@font/seguisb"
                 android:textColor="@color/colorAccent"
                 android:textSize="23sp"
-                app:layout_constraintRight_toRightOf="parent"
+                android:textAlignment="textEnd"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:textEventDate="@{event.date}"
                 tools:text="17\nSEP" />

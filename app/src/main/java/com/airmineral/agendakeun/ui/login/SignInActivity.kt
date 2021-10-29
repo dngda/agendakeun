@@ -10,7 +10,6 @@ import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.databinding.ActivitySignInBinding
 import com.airmineral.agendakeun.ui.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -21,6 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInActivity : AppCompatActivity() {
     private val mViewModel: AuthViewModel by viewModel()
+
     companion object {
         const val EXTRA_KEY = "new_sign_uid"
         const val TAG = "SignInActivity"
@@ -37,7 +37,7 @@ class SignInActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken("184531547133-3nara4jng21tbbn3idhi0t2nod77ungm.apps.googleusercontent.com")
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
@@ -54,11 +54,10 @@ class SignInActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.id!!)
+    private fun firebaseAuthWithGoogle(idToken: String) {
         binding.welcomeProgressBar.visibility = View.VISIBLE
 
-        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -75,15 +74,9 @@ class SignInActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Snackbar.make(
-                        binding.rootSignIn,
-                        "Authentication Failed.",
-                        Snackbar.LENGTH_SHORT
-                    )
-                        .show()
+                    showAuthFailed()
 
                 }
-
                 binding.welcomeProgressBar.visibility = View.INVISIBLE
             }
     }
@@ -96,13 +89,23 @@ class SignInActivity : AppCompatActivity() {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account!!)
+                firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
                 // Google Sign In failed
                 Log.w(TAG, "Google sign in failed", e)
+                showAuthFailed()
                 binding.btnWelcomeSignIn.isEnabled = true
             }
         }
+    }
+
+    private fun showAuthFailed() {
+        Snackbar.make(
+            binding.rootSignIn,
+            "Authentication Failed.",
+            Snackbar.LENGTH_SHORT
+        )
+            .show()
     }
 
 }

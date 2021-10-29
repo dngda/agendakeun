@@ -18,7 +18,7 @@
     <string name="btn_add_info">Tambahkan?</string>
     <string name="welcome_message_info">Nice to see you!</string>
     <string name="btn_sign_in_info">Sign In</string>
-    <string name="welcome_hint">Masuk menggunakan Google untuk melanjutkan!</string>
+    <string name="welcome_hint">Masuk menggunakan Akun Google untuk melanjutkan!</string>
     <string name="btn_sign_out">Sign Out</string>
     <string name="csi_et_hint_pos">Jabatan di Organisasi</string>
     <string name="csi_et_hint_name">Nama Panggilan</string>
