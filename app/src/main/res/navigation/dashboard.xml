@@ -10,5 +10,14 @@
         android:id="@+id/dashboardFragment"
         android:name="com.airmineral.agendakeun.ui.dashboard.DashboardFragment"
         android:label="Dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_eventDetailFragment2"
+            app:destination="@id/eventDetailFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventDetailFragment2"
+        android:name="com.airmineral.agendakeun.ui.event.EventDetailFragment"
+        android:label="Detail Agenda"
+        tools:layout="@layout/fragment_event_detail" />
 </navigation>

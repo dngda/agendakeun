@@ -21,11 +21,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         remoteMessage.data.isNotEmpty().let {
             Log.d(TAG, "Message data payload: " + remoteMessage.data)
 
-            if (!remoteMessage.data.isNullOrEmpty()) {
-                val title: String = remoteMessage.data["title"].toString()
-                val msg: String = remoteMessage.data["message"].toString()
-                sendNotification(this, title, msg)
-            }
+            val title: String = remoteMessage.data["title"].toString()
+            val msg: String = remoteMessage.data["message"].toString()
+            sendNotification(this, title, msg)
         }
         remoteMessage.notification?.let {
             Log.d(TAG, "Message Notification title : ${it.title}, body : ${it.body}")

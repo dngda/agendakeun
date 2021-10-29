@@ -35,7 +35,7 @@ fun sendNotificationToServer(context: Context, topic: String, title: String, mes
     try {
         notificationBody.put("title", title)
         notificationBody.put("message", message)
-        notification.put("to", topic)
+        notification.put("to", "/topics/$topic")
         notification.put("data", notificationBody)
         Log.e(TAG, "try")
     } catch (e: JSONException) {
@@ -71,7 +71,12 @@ private fun sendFCM(context: Context, notification: JSONObject) {
 fun sendNotification(context: Context, messageTitle: String?, messageBody: String?) {
     val intent = Intent(context, MainActivity::class.java)
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-    val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+    val pendingIntent = PendingIntent.getActivity(
+        context,
+        0,
+        intent,
+        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+    )
     val channelId = context.getString(R.string.default_notification_channel_id)
     val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
     val notificationBuilder = NotificationCompat.Builder(context, channelId)

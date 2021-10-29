@@ -43,17 +43,16 @@ class DashboardFragment : Fragment() {
     }
 
     private fun bindUI() = Coroutines.main {
-        var allEventCount = 0
         var nextEventCount = 0
         try {
             viewModel.eventList.await().observe(viewLifecycleOwner, {
                 Log.d(HomeFragment.TAG, it.last().toString())
                 if (it.isEmpty()) {
-                    viewModel.upEvent.value = Event()
+                    viewModel.upEvent.value = Event(name = "None")
                     viewModel.statNextEvent.value = "0"
                 } else {
                     binding.isNextLoaded = true
-                    viewModel.upEvent.value = it.last()
+                    viewModel.upEvent.value = it.first()
                     viewModel.statNextEvent.value = it.size.toString()
                     nextEventCount = it.size
                 }
@@ -64,13 +63,13 @@ class DashboardFragment : Fragment() {
                 } else {
                     binding.isAllStatLoaded = true
                     viewModel.statAllEvent.value = it.size.toString()
-                    allEventCount = it.size
+                    var allEventCount = it.size
                     viewModel.statPassedEvent.value = (allEventCount - nextEventCount).toString()
                 }
             })
 
         } catch (e: Exception) {
-            Log.d(HomeFragment.TAG, e.message!!)
+            Log.d(HomeFragment.TAG, e.stackTraceToString())
         }
     }
 }

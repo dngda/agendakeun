@@ -28,9 +28,9 @@ class EventRepository(
         }
     }
 
-    suspend fun getAllEventList(): LiveData<List<Event>>? {
+    suspend fun getCurEventList(): LiveData<List<Event>>? {
         return try {
-            val allEventList = MutableLiveData<List<Event>>()
+            val curEventList = MutableLiveData<List<Event>>()
             val currentUserID = firebaseInstance.auth.currentUser?.uid
             val curDate = Calendar.getInstance().time
             val groupList: List<String> =
@@ -44,8 +44,8 @@ class EventRepository(
                     }
             }
             eventList.sortBy { it.date }
-            allEventList.postValue(eventList)
-            allEventList
+            curEventList.postValue(eventList)
+            curEventList
         } catch (e: FirebaseFirestoreException) {
             Log.d(TAG, e.message!!)
             null
@@ -54,7 +54,7 @@ class EventRepository(
 
     suspend fun getPastEventList(): LiveData<List<Event>>? {
         return try {
-            val allEventList = MutableLiveData<List<Event>>()
+            val pastEventList = MutableLiveData<List<Event>>()
             val currentUserID = firebaseInstance.auth.currentUser?.uid
             val groupList: List<String> =
                 PreferenceProvider(context).getUserGroupList(currentUserID!!)
@@ -66,8 +66,8 @@ class EventRepository(
                     }
             }
             eventList.sortByDescending { it.date }
-            allEventList.postValue(eventList)
-            allEventList
+            pastEventList.postValue(eventList)
+            pastEventList
         } catch (e: FirebaseFirestoreException) {
             Log.d(TAG, e.message!!)
             null
