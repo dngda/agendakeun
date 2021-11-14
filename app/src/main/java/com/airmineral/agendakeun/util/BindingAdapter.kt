@@ -43,12 +43,13 @@ fun convertDate(view: TextView, mDate: Date?) {
 fun convertData(view: TextView, event: Event?) {
     val myFormat = "HH:mm"
     val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
-    var date: String? = null
-    if (event !== null) {
-        date = sdf.format(event.date!!)
-        view.text = "$date at ${event.place}"
-    } else {
-        view.text = ""
+    if (event != null) {
+        if (event.date != null) {
+            val date = sdf.format(event.date!!)
+            view.text = "$date at ${event.place}"
+        } else {
+            view.text = ""
+        }
     }
 }
 
