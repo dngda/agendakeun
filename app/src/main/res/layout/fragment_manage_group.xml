@@ -37,6 +37,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/mg_creator"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/seguisb"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mg_name"
+            tools:text="Pembuat: Danang Dwiyoga A" />
+
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -46,7 +59,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mg_name" />
+            app:layout_constraintTop_toBottomOf="@id/mg_creator" />
 
         <TextView
             android:id="@+id/tv_gct_selected"
@@ -59,7 +72,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mg_name"
+            app:layout_constraintTop_toBottomOf="@id/mg_creator"
             tools:text="1 Anggota" />
 
         <androidx.recyclerview.widget.RecyclerView

@@ -79,8 +79,8 @@ class CreateEventViewModel(
     var eventDateAndTime: Date? = null
 
     fun onSaveEventBtnClick(view: View) {
-        if (eventName.isNullOrEmpty()) return view.context.toast("Nama kegiatan tidak boleh kosong!")
-        if (eventPlace.isNullOrEmpty()) return view.context.toast("Tempat kegiatan tidak boleh kosong!")
+        if (eventName.isNullOrEmpty()) return view.context.toast("Nama Agenda tidak boleh kosong!")
+        if (eventPlace.isNullOrEmpty()) return view.context.toast("Tempat Agenda tidak boleh kosong!")
 
         viewModelScope.launch {
             eventRepository.saveGroupEvent(

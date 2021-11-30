@@ -14,6 +14,7 @@
     <string name="et_gct_group_hint">Cari pengguna…</string>
     <string name="tv_gct_daftar">Daftar Anggota:</string>
     <string name="btn_save">Simpan</string>
+    <string name="btn_delete">Delete</string>
     <string name="tv_event_not_available">Tidak ada agenda.</string>
     <string name="btn_add_info">Tambahkan?</string>
     <string name="welcome_message_info">Nice to see you!</string>
@@ -44,9 +45,12 @@
     <string name="creator">Event created by %s</string>
     <string name="group_creator_count">%d Terpilih (Termasuk Anda)</string>
     <string name="group_manage_count">%d Anggota</string>
+    <string name="group_creator_name">Pembuat: %s</string>
     <string name="menu_edit">Edit</string>
     <string name="fab_cd">fab</string>
     <string name="upcoming_event_info">Upcoming Event:</string>
     <string name="title_activity_maps">Map</string>
     <string name="google_maps">Google Maps (Opsional)</string>
+    <string name="add_member">Add member</string>
+    <string name="remove_member">Remove member</string>
 </resources>

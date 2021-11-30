@@ -50,7 +50,7 @@ class GroupCreatorFragment : Fragment() {
             viewModel.allUserList.await().observe(viewLifecycleOwner, {
                 initRecyclerView(it.toUserItem())
 
-                setInvisible(binding.tvGctErrorInfo)
+                setInvisible(binding.tvGctLoading)
             })
         } catch (e: Exception) {
             Log.d("GCTF", e.message!!)
