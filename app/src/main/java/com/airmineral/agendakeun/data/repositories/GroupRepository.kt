@@ -27,7 +27,42 @@ class GroupRepository(private val firebaseInstance: FirebaseInstance) {
                 }
             true
         } catch (e: FirebaseFirestoreException) {
-            Log.d(UserRepository.TAG, e.message!!)
+            Log.d(TAG + "_Save Group", e.message!!)
+            false
+        }
+    }
+
+    fun editGroup(
+        groupData: Group,
+        mapUserList: Map<String, Boolean>,
+        deletedUser: MutableList<String>?,
+        addedUser: MutableList<String>?
+    ): Boolean {
+        return try {
+            firebaseInstance.groupColRef.document(groupData.groupId!!)
+                .update("userList", mapUserList)
+
+            deletedUser?.forEach {
+                firebaseInstance.userColRef.document(it)
+                    .update("groupList", FieldValue.arrayRemove(groupData.groupId))
+            }
+            addedUser?.forEach {
+                firebaseInstance.userColRef.document(it)
+                    .update("groupList", FieldValue.arrayUnion(groupData.groupId))
+            }
+            true
+        } catch (e: FirebaseFirestoreException) {
+            Log.d(TAG + "_Edit Group", e.message!!)
+            false
+        }
+    }
+
+    fun deleteGroup(groupId: String): Boolean {
+        return try {
+            firebaseInstance.groupColRef.document(groupId).delete()
+            true
+        } catch (e: FirebaseFirestoreException) {
+            Log.d(TAG + "_Delete Group", e.message!!)
             false
         }
     }
@@ -43,31 +78,39 @@ class GroupRepository(private val firebaseInstance: FirebaseInstance) {
                     groupList.add(it.toObject())
                 }
             res.postValue(groupList)
-            Log.d(TAG, res.value.toString())
             res
         } catch (e: FirebaseFirestoreException) {
-            Log.d(TAG, e.message!!)
+            Log.d(TAG + "_getAllG Catch", e.message!!)
             null
         }
     }
 
-    suspend fun getGroupUserList(groupId: String): LiveData<List<User>>? {
+    suspend fun getGroupUserList(groupId: String, noCUser: Boolean): LiveData<List<User>>? {
         return try {
+            val currentUserID = firebaseInstance.auth.currentUser?.uid
             val res = MutableLiveData<List<User>>()
             val userList = mutableListOf<User>()
             val groupData =
                 firebaseInstance.groupColRef.document(groupId).get().await().toObject<Group>()
             groupData?.userList?.forEach {
-                firebaseInstance.userColRef.document(it.key).get().await().toObject<User>()
-                    .let { user ->
-                        userList.add(user!!)
+                if (noCUser) {
+                    if (it.key != currentUserID) {
+                        firebaseInstance.userColRef.document(it.key).get().await().toObject<User>()
+                            .let { user ->
+                                userList.add(user!!)
+                            }
                     }
+                } else {
+                    firebaseInstance.userColRef.document(it.key).get().await().toObject<User>()
+                        .let { user ->
+                            userList.add(user!!)
+                        }
+                }
             }
             res.postValue(userList)
-            Log.d(TAG, res.value.toString())
             res
         } catch (e: FirebaseFirestoreException) {
-            Log.d(TAG, e.message!!)
+            Log.d(TAG + "_getGUserList catch", e.message!!)
             null
         }
     }

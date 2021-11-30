@@ -38,6 +38,21 @@ class UserRepository(private val firebaseInstance: FirebaseInstance) {
         return res
     }
 
+    fun getSpecificUserData(uid: String): LiveData<User> {
+        val res = MutableLiveData<User>()
+        val docsRef = firebaseInstance.userColRef.document(uid)
+        docsRef.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+            if (documentSnapshot != null && documentSnapshot.exists()) {
+                res.postValue(documentSnapshot.toObject<User>())
+            }
+            if (firebaseFirestoreException != null) {
+                Log.w(TAG, "get failed with ", firebaseFirestoreException)
+                return@addSnapshotListener
+            }
+        }
+        return res
+    }
+
     fun getCurrentUser(): FirebaseUser {
         return firebaseInstance.auth.currentUser!!
     }
@@ -54,6 +69,30 @@ class UserRepository(private val firebaseInstance: FirebaseInstance) {
                 if (it.id != getCurrentUser().uid)
                     userList.add(it.toObject())
             }
+            results.postValue(userList)
+            results
+        } catch (e: Exception) {
+            Log.d(TAG, e.message!!)
+            null
+        }
+    }
+
+    suspend fun getAllUserExcMember(groupId: String?): LiveData<List<User>>? {
+        return try {
+            val results = MutableLiveData<List<User>>()
+            val userList = mutableListOf<User>()
+            firebaseInstance.userColRef
+                .get().await().forEach {
+                    if (it.toObject<User>().groupList.isNullOrEmpty()) {
+                        userList.add(it.toObject())
+                    } else {
+                        it.toObject<User>().groupList?.forEach { id ->
+                            if (id != groupId)
+                                userList.add(it.toObject())
+                        }
+
+                    }
+                }
             results.postValue(userList)
             results
         } catch (e: Exception) {

@@ -137,25 +137,6 @@
                 app:layout_constraintTop_toBottomOf="@id/new_event_time" />
 
             <EditText
-                android:id="@+id/new_event_maps"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/edit_text_height"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/et_rounded"
-                android:fontFamily="@font/seguisb"
-                android:hint="@string/google_maps"
-                android:importantForAutofill="no"
-                android:inputType="textCapSentences"
-                android:paddingStart="28dp"
-                android:paddingEnd="20dp"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/new_event_place" />
-
-            <EditText
                 android:id="@+id/new_event_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -175,7 +156,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/new_event_maps" />
+                app:layout_constraintTop_toBottomOf="@id/new_event_place" />
 
             <Button
                 android:id="@+id/new_event_save"

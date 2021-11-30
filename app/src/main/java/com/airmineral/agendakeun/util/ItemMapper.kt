@@ -14,6 +14,12 @@ fun List<User>.toUserItem(): List<UserItem> {
     }
 }
 
+fun List<User>.toUserItemDelete(): List<UserItemDelete> {
+    return this.map {
+        UserItemDelete(it)
+    }
+}
+
 fun List<Group>.toGroupItem(): List<GroupItem> {
     return this.map {
         GroupItem(it)

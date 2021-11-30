@@ -45,7 +45,10 @@ class ProfileViewModel(
     val count = MutableLiveData<Int>()
 
     val groupUserList: Deferred<LiveData<List<User>>> by lazyDeferred {
-        groupRepository.getGroupUserList(groupData?.groupId!!)!!
+        groupRepository.getGroupUserList(groupData?.groupId!!, false)!!
+    }
+    val groupCreatorName: Deferred<LiveData<User>> by lazyDeferred {
+        userRepository.getSpecificUserData(groupData?.creator!!)
     }
 
 }

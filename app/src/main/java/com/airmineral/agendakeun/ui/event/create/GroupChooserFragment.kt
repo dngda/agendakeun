@@ -60,7 +60,7 @@ class GroupChooserFragment : Fragment() {
         try {
             viewModel.allGroupList.await().observe(viewLifecycleOwner, {
                 initRecyclerView(it.toGroupItem())
-                Log.d("Chooser Fragment", it.toString())
+                Log.d("Chooser Fragment BindUI allGroupList", it.toString())
 
                 if (it.isEmpty())
                     binding.tvGchErrorInfo.text = getString(R.string.not_available)

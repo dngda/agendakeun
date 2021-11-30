@@ -3,9 +3,10 @@ package com.airmineral.agendakeun.ui.profile
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.data.model.UserItem
@@ -32,7 +33,7 @@ class ManageGroupFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_manage_group, container, false)
         binding.viewModel = viewModel
@@ -43,7 +44,6 @@ class ManageGroupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.groupData = arguments?.getParcelable("groupData")
-
         bindUI()
     }
 
@@ -54,6 +54,11 @@ class ManageGroupFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_edit -> {
+                val bundle = bundleOf("groupDataEdit" to viewModel.groupData)
+                findNavController().navigate(
+                    R.id.action_manageGroupFragment_to_groupEditorFragment,
+                    bundle
+                )
             }
         }
         return super.onOptionsItemSelected(item)
@@ -61,13 +66,17 @@ class ManageGroupFragment : Fragment() {
 
     private fun bindUI() = Coroutines.main {
         try {
-            viewModel.groupUserList.await().observe(viewLifecycleOwner, Observer {
+            viewModel.groupCreatorName.await().observe(viewLifecycleOwner, {
+                binding.mgCreator.text = this.getString(R.string.group_creator_name, it.name)
+            })
+            viewModel.count.postValue(0)
+            viewModel.groupUserList.await().observe(viewLifecycleOwner, {
                 viewModel.count.postValue(it.size)
                 initRecyclerView(it.toUserItem())
-                Log.d(TAG, it.toString())
+                Log.d(TAG + "_BindUI try", it.toString())
             })
         } catch (e: Exception) {
-            Log.d(TAG, e.message!!)
+            Log.d(TAG + "_BindUI catch", e.message!!)
         }
     }
 

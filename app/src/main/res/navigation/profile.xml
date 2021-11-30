@@ -38,10 +38,22 @@
     <fragment
         android:id="@+id/manageGroupFragment"
         android:name="com.airmineral.agendakeun.ui.profile.ManageGroupFragment"
-        android:label="Kelola"
+        android:label="Kelola kelompok"
         tools:layout="@layout/fragment_manage_group">
         <action
             android:id="@+id/action_manageGroupFragment_to_groupManager"
+            app:destination="@id/groupManager" />
+        <action
+            android:id="@+id/action_manageGroupFragment_to_groupEditorFragment"
+            app:destination="@id/groupEditorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupEditorFragment"
+        android:name="com.airmineral.agendakeun.ui.profile.GroupEditorFragment"
+        android:label="Edit kelompok"
+        tools:layout="@layout/fragment_group_editor">
+        <action
+            android:id="@+id/action_groupEditorFragment_to_groupManager"
             app:destination="@id/groupManager" />
     </fragment>
 </navigation>

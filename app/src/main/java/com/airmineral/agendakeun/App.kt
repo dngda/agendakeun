@@ -9,6 +9,7 @@ import com.airmineral.agendakeun.ui.dashboard.DashboardViewModel
 import com.airmineral.agendakeun.ui.event.HomeViewModel
 import com.airmineral.agendakeun.ui.event.create.CreateEventViewModel
 import com.airmineral.agendakeun.ui.login.AuthViewModel
+import com.airmineral.agendakeun.ui.profile.GroupEditorViewModel
 import com.airmineral.agendakeun.ui.profile.ProfileViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -35,6 +36,7 @@ class App : Application() {
                 viewModel { CreateEventViewModel(get(), get(), get()) }
                 viewModel { HomeViewModel(get()) }
                 viewModel { DashboardViewModel(get(), get()) }
+                viewModel { GroupEditorViewModel(get(), get()) }
             }
 
             koin.loadModules(listOf(koinModules))
