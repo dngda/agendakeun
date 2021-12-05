@@ -34,7 +34,6 @@ class GroupEditorViewModel(
     val selectedForAdd = mutableListOf<String>()
 
     fun onSaveGroupBtnClick(view: View) {
-        //TODO hapus creator di seleksi untuk hapus anggota
         memberUid.addAll(selectedForAdd)
         memberUid.removeAll(selectedForDelete)
         val mapUserList = memberUid.map {
@@ -53,7 +52,7 @@ class GroupEditorViewModel(
             setTitle("Hapus Kelompok?")
             setMessage("Menghapus kelompok akan menghapus semua agenda terkait! Lanjutkan?")
             setPositiveButton("Oke") { _, _ ->
-                groupRepository.deleteGroup(groupData?.groupId!!)
+                groupRepository.deleteGroup(groupData!!)
                 Toast.makeText(
                     view.context,
                     "Kelompok dan semua agenda terkait akan dihapus",
