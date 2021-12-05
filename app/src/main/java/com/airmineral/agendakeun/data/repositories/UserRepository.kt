@@ -81,16 +81,18 @@ class UserRepository(private val firebaseInstance: FirebaseInstance) {
         return try {
             val results = MutableLiveData<List<User>>()
             val userList = mutableListOf<User>()
+
             firebaseInstance.userColRef
                 .get().await().forEach {
                     if (it.toObject<User>().groupList.isNullOrEmpty()) {
                         userList.add(it.toObject())
                     } else {
+                        var isMember = false
                         it.toObject<User>().groupList?.forEach { id ->
-                            if (id != groupId)
-                                userList.add(it.toObject())
+                            if (id == groupId)
+                                isMember = true
                         }
-
+                        if (!isMember) userList.add(it.toObject())
                     }
                 }
             results.postValue(userList)

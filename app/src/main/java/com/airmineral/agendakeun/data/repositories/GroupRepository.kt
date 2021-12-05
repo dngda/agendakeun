@@ -4,11 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.airmineral.agendakeun.data.FirebaseInstance
+import com.airmineral.agendakeun.data.model.Event
 import com.airmineral.agendakeun.data.model.Group
 import com.airmineral.agendakeun.data.model.User
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.ktx.toObjects
 import kotlinx.coroutines.tasks.await
 
 class GroupRepository(private val firebaseInstance: FirebaseInstance) {
@@ -57,9 +59,20 @@ class GroupRepository(private val firebaseInstance: FirebaseInstance) {
         }
     }
 
-    fun deleteGroup(groupId: String): Boolean {
+    fun deleteGroup(group: Group): Boolean {
         return try {
-            firebaseInstance.groupColRef.document(groupId).delete()
+            firebaseInstance.groupEventColRef(group.groupId!!).get()
+                .addOnSuccessListener {
+                    it.toObjects<Event>().forEach { e ->
+                        firebaseInstance.groupEventColRef(group.groupId!!).document(e.eventId!!)
+                            .delete()
+                    }
+                }
+            firebaseInstance.groupColRef.document(group.groupId!!).delete()
+            group.userList?.forEach {
+                firebaseInstance.userColRef.document(it.key)
+                    .update("groupList", FieldValue.arrayRemove(group.groupId))
+            }
             true
         } catch (e: FirebaseFirestoreException) {
             Log.d(TAG + "_Delete Group", e.message!!)
@@ -94,7 +107,7 @@ class GroupRepository(private val firebaseInstance: FirebaseInstance) {
                 firebaseInstance.groupColRef.document(groupId).get().await().toObject<Group>()
             groupData?.userList?.forEach {
                 if (noCUser) {
-                    if (it.key != currentUserID) {
+                    if (it.key != currentUserID && it.key != groupData.creator) {
                         firebaseInstance.userColRef.document(it.key).get().await().toObject<User>()
                             .let { user ->
                                 userList.add(user!!)
