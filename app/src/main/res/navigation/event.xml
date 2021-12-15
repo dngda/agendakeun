@@ -47,7 +47,7 @@
         android:id="@+id/createEventFragment"
         android:name="com.airmineral.agendakeun.ui.event.create.CreateEventFragment"
         android:label="Buat Agenda"
-        tools:layout="@layout/fragment_create_event">
+        tools:layout="@layout/fragment_event_creator">
         <action
             android:id="@+id/action_createEventFragment_to_homeFragment"
             app:destination="@id/eventFragment"
@@ -58,7 +58,11 @@
         android:id="@+id/eventDetailFragment"
         android:name="com.airmineral.agendakeun.ui.event.EventDetailFragment"
         android:label="Detail Agenda"
-        tools:layout="@layout/fragment_event_detail" />
+        tools:layout="@layout/fragment_event_detail">
+        <action
+            android:id="@+id/action_eventDetailFragment_to_editEventFragment"
+            app:destination="@id/editEventFragment" />
+    </fragment>
     <fragment
         android:id="@+id/allEventFragment"
         android:name="com.airmineral.agendakeun.ui.event.AllEventFragment"
@@ -67,5 +71,14 @@
         <action
             android:id="@+id/action_allEventFragment_to_eventDetailFragment"
             app:destination="@id/eventDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editEventFragment"
+        android:name="com.airmineral.agendakeun.ui.event.create.EditEventFragment"
+        android:label="EditEventFragment"
+        tools:layout="@layout/fragment_event_editor">
+        <action
+            android:id="@+id/action_editEventFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
     </fragment>
 </navigation>

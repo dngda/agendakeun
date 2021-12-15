@@ -17,8 +17,12 @@
         <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/activity_sign_in.xml" value="0.19746376811594202" />
         <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/fragment_create_event.xml" value="0.22" />
         <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/fragment_dashboard.xml" value="0.19739583333333333" />
+        <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/fragment_edit_event.xml" value="0.2" />
         <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/fragment_event.xml" value="0.2" />
+        <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/fragment_event_creator.xml" value="0.2" />
         <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/fragment_event_detail.xml" value="0.2" />
+        <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/fragment_event_editor.xml" value="0.2" />
+        <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/fragment_group_chooser.xml" value="0.2" />
         <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/fragment_group_creator.xml" value="0.2" />
         <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/fragment_group_editor.xml" value="0.2" />
         <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/fragment_manage_group.xml" value="0.2" />
@@ -27,6 +31,7 @@
         <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/item_group_chooser.xml" value="0.2" />
         <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/item_group_creator.xml" value="0.2" />
         <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/layout/item_group_creator_delete.xml" value="0.2" />
+        <entry key="..\:/Documents/AndroidStudioProject/Agendakeun/app/src/main/res/menu/menu_manage_group.xml" value="0.2" />
       </map>
     </option>
   </component>

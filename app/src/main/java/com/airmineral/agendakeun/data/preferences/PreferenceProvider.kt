@@ -21,10 +21,18 @@ class PreferenceProvider(
     }
 
     fun saveUserGroupList(userId: String, groupList: List<String>) {
-        return preference.edit().putStringSet(userId, groupList.toSet()).apply()
+        preference.edit().putStringSet(userId, groupList.toSet()).apply()
     }
 
     fun getUserGroupList(userId: String): List<String> {
         return preference.getStringSet(userId, null)!!.toList()
+    }
+
+    fun saveStrings(key: String, data: String?) {
+        preference.edit().putString(key, data).apply()
+    }
+
+    fun getStrings(key: String): String? {
+        return preference.getString(key, "")
     }
 }

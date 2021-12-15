@@ -16,7 +16,8 @@ data class Event(
     var place: String? = null,
     var googleMaps: String? = null,
     var desc: String? = null,
-    var creator: String? = null
+    var creator: String? = null,
+    var creatorUID: String? = null
 ) : Parcelable {
-    constructor() : this("", "", "", "", null, "", null, "")
+    constructor() : this("", "", "", "", null, "", null, "", "", "")
 }

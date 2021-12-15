@@ -39,7 +39,7 @@
         android:id="@+id/manageGroupFragment"
         android:name="com.airmineral.agendakeun.ui.profile.ManageGroupFragment"
         android:label="Kelola kelompok"
-        tools:layout="@layout/fragment_manage_group">
+        tools:layout="@layout/fragment_group_manager">
         <action
             android:id="@+id/action_manageGroupFragment_to_groupManager"
             app:destination="@id/groupManager" />

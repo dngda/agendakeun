@@ -64,7 +64,6 @@ class GroupEditorViewModel(
                 )
             }
             setNegativeButton("Batal") { _, _ ->
-                Toast.makeText(view.context, "Batal", Toast.LENGTH_SHORT).show()
             }
         }
         val alertNotCreator = AlertDialog.Builder(view.context).apply {

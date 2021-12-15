@@ -40,12 +40,16 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         bindUI()
+        binding.dashboardRefresh.setOnRefreshListener {
+            bindUI()
+        }
     }
 
     private fun bindUI() = Coroutines.main {
         var nextEventCount = 0
         try {
-            viewModel.eventList.await().observe(viewLifecycleOwner, {
+            viewModel.eventListAsync().await().observe(viewLifecycleOwner, {
+                binding.dashboardRefresh.isRefreshing = false
                 if (it.isEmpty()) {
                     viewModel.upEvent.value = Event(name = "No Event")
                     viewModel.statNextEvent.value = "0"
@@ -56,7 +60,8 @@ class DashboardFragment : Fragment() {
                 }
                 binding.isNextLoaded = true
             })
-            viewModel.allEventList.await().observe(viewLifecycleOwner, {
+            viewModel.allEventListAsync().await().observe(viewLifecycleOwner, {
+                binding.dashboardRefresh.isRefreshing = false
                 if (it.isEmpty()) {
                     viewModel.statPassedEvent.value = "0"
                 } else {

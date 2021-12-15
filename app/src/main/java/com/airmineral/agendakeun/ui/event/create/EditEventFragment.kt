@@ -9,15 +9,19 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.airmineral.agendakeun.R
-import com.airmineral.agendakeun.databinding.FragmentEventCreatorBinding
+import com.airmineral.agendakeun.data.model.Event
+import com.airmineral.agendakeun.data.model.Group
+import com.airmineral.agendakeun.databinding.FragmentEventEditorBinding
 import com.airmineral.agendakeun.util.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreateEventFragment : Fragment() {
+class EditEventFragment : Fragment() {
     private val viewModel: CreateEventViewModel by viewModel()
-    private lateinit var binding: FragmentEventCreatorBinding
+    private lateinit var binding: FragmentEventEditorBinding
+    private val myFormat = "EEEE, dd MMM yyyy" // mention the format you need
+    private val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +29,7 @@ class CreateEventFragment : Fragment() {
     ): View {
 
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_event_creator, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_event_editor, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
@@ -35,7 +39,21 @@ class CreateEventFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.groupData = arguments?.getParcelable("groupData")!!
+        val eventData = arguments?.getParcelable<Event>("eventData")
+        viewModel.eventID = eventData?.eventId
+        viewModel.eventName = eventData?.name
+        viewModel.eventPlace = eventData?.place
+        viewModel.eventDateAndTime = eventData?.date
+        viewModel.eventDesc = eventData?.desc
+        viewModel.groupData = Group(eventData?.groupId, eventData?.groupName, null, null)
+
+        binding.editEventDate.setText(sdf.format(eventData?.date!!))
+        binding.editEventTime.setText(
+            SimpleDateFormat(
+                "HH:mm z",
+                Locale.getDefault()
+            ).format(eventData.date!!)
+        )
 
         initDateTimePicker()
     }
@@ -50,12 +68,11 @@ class CreateEventFragment : Fragment() {
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                val myFormat = "EEEE, dd MMM yyyy" // mention the format you need
-                val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
+
                 if (cal.time < curDate) {
                     requireContext().toast("Kamu tidak bisa membuat agenda untuk masa lalu!")
                 } else {
-                    binding.newEventDate.setText(sdf.format(cal.time))
+                    binding.editEventDate.setText(sdf.format(cal.time))
                     viewModel.eventDateAndTime = cal.time
                 }
             }
@@ -68,7 +85,7 @@ class CreateEventFragment : Fragment() {
                 if (cal.time < curDate) {
                     requireContext().toast("Kamu tidak bisa membuat agenda untuk masa lalu!")
                 } else {
-                    binding.newEventTime.setText(
+                    binding.editEventTime.setText(
                         SimpleDateFormat(
                             "HH:mm z",
                             Locale.getDefault()
@@ -78,7 +95,7 @@ class CreateEventFragment : Fragment() {
                 }
             }
 
-        binding.newEventDate.setOnClickListener {
+        binding.editEventDate.setOnClickListener {
             DatePickerDialog(
                 it.context, dateSetListener,
                 cal.get(Calendar.YEAR),
@@ -87,7 +104,7 @@ class CreateEventFragment : Fragment() {
             ).show()
         }
 
-        binding.newEventTime.setOnClickListener {
+        binding.editEventTime.setOnClickListener {
             TimePickerDialog(
                 it.context,
                 timeSetListener,

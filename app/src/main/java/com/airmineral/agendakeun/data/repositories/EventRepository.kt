@@ -28,6 +28,10 @@ class EventRepository(
         }
     }
 
+    fun deleteGroupEvent(groupId: String, eventID: String) {
+        firebaseInstance.groupEventColRef(groupId).document(eventID).delete()
+    }
+
     suspend fun getCurEventList(): LiveData<List<Event>>? {
         return try {
             val curEventList = MutableLiveData<List<Event>>()
