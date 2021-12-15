@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.data.model.UserItem
-import com.airmineral.agendakeun.databinding.FragmentManageGroupBinding
+import com.airmineral.agendakeun.databinding.FragmentGroupManagerBinding
 import com.airmineral.agendakeun.util.Coroutines
 import com.airmineral.agendakeun.util.toUserItem
 import com.xwray.groupie.GroupAdapter
@@ -23,7 +23,7 @@ class ManageGroupFragment : Fragment() {
     }
 
     private val viewModel: ProfileViewModel by viewModel()
-    private lateinit var binding: FragmentManageGroupBinding
+    private lateinit var binding: FragmentGroupManagerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class ManageGroupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_manage_group, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_group_manager, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root

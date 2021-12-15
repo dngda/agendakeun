@@ -1,6 +1,8 @@
 package com.airmineral.agendakeun.ui.event.create
 
+import android.app.AlertDialog
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -72,39 +74,78 @@ class CreateEventViewModel(
         }
     }
 
-    val groupData = MutableLiveData<Group>()
+    var groupData = Group()
     var eventName: String? = null
     var eventPlace: String? = null
     var eventDesc: String? = null
+    var eventID: String? = null
     var eventDateAndTime: Date? = null
+
+    fun onDeleteEventBtnClick(view: View) {
+        val alertYesNo = AlertDialog.Builder(view.context).apply {
+            setTitle("Hapus Agenda?")
+            setMessage("Anda yakin akan menghapus agenda ini?")
+            setPositiveButton("Oke") { _, _ ->
+                eventRepository.deleteGroupEvent(groupData.groupId!!, eventID!!)
+                Toast.makeText(
+                    view.context,
+                    "Agenda terhapus",
+                    Toast.LENGTH_SHORT
+                ).show()
+                view.findNavController().navigate(R.id.action_editEventFragment_to_eventFragment)
+            }
+            setNegativeButton("Batal") { _, _ ->
+            }
+        }
+        alertYesNo.show()
+    }
 
     fun onSaveEventBtnClick(view: View) {
         if (eventName.isNullOrEmpty()) return view.context.toast("Nama Agenda tidak boleh kosong!")
         if (eventPlace.isNullOrEmpty()) return view.context.toast("Tempat Agenda tidak boleh kosong!")
+        saveEvent()
+        val sdFormat = SimpleDateFormat("EEEE, dd MMM yyyy 'pukul' HH:mm", Locale.getDefault())
+        val dateTime = sdFormat.format(eventDateAndTime!!)
+        sendNotificationToServer(
+            view.context, groupData.groupId!!,
+            "Agenda baru untuk ${groupData.name} ditambahkan!",
+            "$eventName pada hari $dateTime bertempat di $eventPlace."
+        )
+        view.findNavController().navigate(R.id.action_createEventFragment_to_homeFragment)
+    }
 
+    fun onEditEventBtnClick(view: View) {
+        if (eventName.isNullOrEmpty()) return view.context.toast("Nama Agenda tidak boleh kosong!")
+        if (eventPlace.isNullOrEmpty()) return view.context.toast("Tempat Agenda tidak boleh kosong!")
+        eventRepository.deleteGroupEvent(groupData.groupId!!, eventID!!)
+        saveEvent()
+        val sdFormat = SimpleDateFormat("EEEE, dd MMM yyyy 'pukul' HH:mm", Locale.getDefault())
+        val dateTime = sdFormat.format(eventDateAndTime!!)
+        sendNotificationToServer(
+            view.context, groupData.groupId!!,
+            "Terjadi perubahan Agenda untuk ${groupData.name}",
+            "$eventName pada hari $dateTime bertempat di $eventPlace."
+        )
+        view.findNavController().navigate(R.id.action_editEventFragment_to_eventFragment)
+    }
+
+    private fun saveEvent() {
         viewModelScope.launch {
             eventRepository.saveGroupEvent(
-                groupData.value?.groupId!!,
+                groupData.groupId!!,
                 Event(
                     null,
-                    groupData.value?.groupId,
-                    groupData.value?.name,
+                    groupData.groupId,
+                    groupData.name,
                     eventName,
                     eventDateAndTime,
                     eventPlace,
                     null,
                     eventDesc,
-                    currentUser.displayName
+                    currentUser.displayName,
+                    currentUserId
                 )
             )
         }
-        val sdFormat = SimpleDateFormat("EEEE, dd MMM yyyy 'pukul' HH:mm", Locale.getDefault())
-        val dateTime = sdFormat.format(eventDateAndTime!!)
-        sendNotificationToServer(
-            view.context, groupData.value?.groupId!!,
-            "Agenda baru untuk ${groupData.value?.name} ditambahkan!",
-            "$eventName pada hari $dateTime bertempat di $eventPlace."
-        )
-        view.findNavController().navigate(R.id.action_createEventFragment_to_homeFragment)
     }
 }

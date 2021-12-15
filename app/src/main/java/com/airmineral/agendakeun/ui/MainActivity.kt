@@ -35,6 +35,7 @@ class MainActivity() : AppCompatActivity(), Observer<User> {
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         }
+        PreferenceProvider(this).saveStrings("UID", userRepository.getCurrentUser().uid)
         subscribeTopic()
     }
 

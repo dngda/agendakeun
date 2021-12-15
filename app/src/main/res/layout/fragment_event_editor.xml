@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
-            tools:context=".ui.event.create.CreateEventFragment">
+            tools:context=".ui.event.create.EditEventFragment">
 
             <TextView
                 android:id="@+id/info"
@@ -35,7 +35,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/new_event_group_name"
+                android:id="@+id/edit_event_group_name"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edit_text_height"
                 android:layout_marginStart="16dp"
@@ -49,14 +49,14 @@
                 android:inputType="none"
                 android:paddingStart="28dp"
                 android:paddingEnd="20dp"
-                android:text="@={viewModel.groupData.name}"
+                android:text="@{viewModel.groupData.name}"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/info" />
 
             <EditText
-                android:id="@+id/new_event_name"
+                android:id="@+id/edit_event_name"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edit_text_height"
                 android:layout_marginStart="16dp"
@@ -73,11 +73,11 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/new_event_group_name" />
+                app:layout_constraintTop_toBottomOf="@id/edit_event_group_name" />
 
 
             <EditText
-                android:id="@+id/new_event_date"
+                android:id="@+id/edit_event_date"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edit_text_height"
                 android:layout_marginStart="16dp"
@@ -94,10 +94,10 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/new_event_name" />
+                app:layout_constraintTop_toBottomOf="@id/edit_event_name" />
 
             <EditText
-                android:id="@+id/new_event_time"
+                android:id="@+id/edit_event_time"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edit_text_height"
                 android:layout_marginStart="16dp"
@@ -114,10 +114,10 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/new_event_date" />
+                app:layout_constraintTop_toBottomOf="@id/edit_event_date" />
 
             <EditText
-                android:id="@+id/new_event_place"
+                android:id="@+id/edit_event_place"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edit_text_height"
                 android:layout_marginStart="16dp"
@@ -134,10 +134,10 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/new_event_time" />
+                app:layout_constraintTop_toBottomOf="@id/edit_event_time" />
 
             <EditText
-                android:id="@+id/new_event_desc"
+                android:id="@+id/edit_event_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -156,22 +156,43 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/new_event_place" />
+                app:layout_constraintTop_toBottomOf="@id/edit_event_place" />
 
             <Button
-                android:id="@+id/new_event_save"
-                android:layout_width="match_parent"
+                android:id="@+id/edit_event_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:background="@drawable/btn_style_red"
+                android:fontFamily="@font/seguisb"
+                android:onClick="@{viewModel::onDeleteEventBtnClick}"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
+                android:text="@string/btn_delete"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@id/edit_event_save"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_event_desc" />
+
+            <Button
+                android:id="@+id/edit_event_save"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_margin="@dimen/activity_horizontal_margin"
                 android:background="@drawable/btn_style"
                 android:fontFamily="@font/seguisb"
-                android:onClick="@{viewModel::onSaveEventBtnClick}"
+                android:onClick="@{viewModel::onEditEventBtnClick}"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
                 android:text="@string/btn_save"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/new_event_desc" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/edit_event_delete"
+                app:layout_constraintTop_toBottomOf="@id/edit_event_desc" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,7 +41,7 @@
                 android:fontFamily="@font/seguisb"
                 android:text="@string/kelompok_terkait"
                 android:textColor="@color/colorPrimaryVeryDark"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/ic_0"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,7 +80,7 @@
                 android:fontFamily="@font/seguisb"
                 android:text="@string/nama_agenda"
                 android:textColor="@color/colorPrimaryVeryDark"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/ic_1"
                 app:layout_constraintTop_toBottomOf="@id/event_detail_group" />
 
@@ -119,7 +119,7 @@
                 android:fontFamily="@font/seguisb"
                 android:text="@string/tanggal"
                 android:textColor="@color/colorPrimaryVeryDark"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/ic_2"
                 app:layout_constraintTop_toBottomOf="@id/event_detail_name" />
 
@@ -158,7 +158,7 @@
                 android:fontFamily="@font/seguisb"
                 android:text="@string/waktu"
                 android:textColor="@color/colorPrimaryVeryDark"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/ic_3"
                 app:layout_constraintTop_toBottomOf="@id/event_detail_date" />
 
@@ -197,7 +197,7 @@
                 android:fontFamily="@font/seguisb"
                 android:text="@string/tempat"
                 android:textColor="@color/colorPrimaryVeryDark"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/ic_4"
                 app:layout_constraintTop_toBottomOf="@id/event_detail_time" />
 
@@ -236,7 +236,7 @@
                 android:fontFamily="@font/seguisb"
                 android:text="@string/info_tambahan_tv"
                 android:textColor="@color/colorPrimaryVeryDark"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/ic_5"
                 app:layout_constraintTop_toBottomOf="@id/event_detail_place" />
 

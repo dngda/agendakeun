@@ -1,20 +1,23 @@
 package com.airmineral.agendakeun.ui.event
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.data.model.Event
 import com.airmineral.agendakeun.data.preferences.PreferenceProvider
+import com.airmineral.agendakeun.data.repositories.UserRepository
 import com.airmineral.agendakeun.databinding.FragmentEventDetailBinding
 import com.airmineral.agendakeun.notification.NotificationWorker
 import com.airmineral.agendakeun.util.toast
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -23,6 +26,13 @@ import java.util.concurrent.TimeUnit
 class EventDetailFragment : Fragment() {
     private lateinit var binding: FragmentEventDetailBinding
     private val viewModel: HomeViewModel by viewModel()
+    private val userRepository: UserRepository by inject()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val isFromDash = arguments?.getBoolean("isFromDashboard", false)
+        if (!isFromDash!!) setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,6 +93,31 @@ class EventDetailFragment : Fragment() {
             }
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_manage_group, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_edit -> {
+                if (viewModel.eventData.value!!.creatorUID?.trim() != userRepository.getCurrentUser().uid) {
+                    Toast.makeText(
+                        this.context,
+                        "Hanya pembuat yang bisa mengubah agenda!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    val bundle = bundleOf("eventData" to viewModel.eventData.value)
+                    findNavController().navigate(
+                        R.id.action_eventDetailFragment_to_editEventFragment,
+                        bundle
+                    )
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }
