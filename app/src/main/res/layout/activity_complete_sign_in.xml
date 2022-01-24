@@ -61,6 +61,7 @@
             android:focusable="false"
             android:fontFamily="@font/seguisb"
             android:hint="@string/et_csi_hint_email"
+            android:maxLines="1"
             android:importantForAutofill="no"
             android:inputType="none"
             android:paddingStart="25dp"
@@ -91,6 +92,25 @@
             app:layout_constraintTop_toBottomOf="@id/et_csi_email" />
 
         <EditText
+            android:id="@+id/et_csi_org_code"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@drawable/et_rounded"
+            android:fontFamily="@font/seguisb"
+            android:hint="@string/csi_et_hint_org_code"
+            android:importantForAutofill="no"
+            android:inputType="textCapCharacters"
+            android:paddingStart="25dp"
+            android:paddingEnd="20dp"
+            android:text="@={viewModel.user.orgCode}"
+            android:textAllCaps="true"
+            android:textColor="@android:color/black"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_csi_name" />
+
+        <EditText
             android:id="@+id/et_csi_position"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -106,7 +126,7 @@
             android:textColor="@android:color/black"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_csi_name" />
+            app:layout_constraintTop_toBottomOf="@id/et_csi_org_code" />
 
         <Button
             android:id="@+id/btn_csi_save"

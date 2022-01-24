@@ -5,12 +5,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.airmineral.agendakeun.data.FirebaseInstance
 import com.airmineral.agendakeun.data.model.User
+import com.airmineral.agendakeun.data.preferences.PreferenceProvider
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
 
-class UserRepository(private val firebaseInstance: FirebaseInstance) {
+class UserRepository(
+    private val firebaseInstance: FirebaseInstance,
+    private val preferenceProvider: PreferenceProvider
+) {
     companion object {
         const val TAG = "User Repo"
     }
@@ -65,7 +69,8 @@ class UserRepository(private val firebaseInstance: FirebaseInstance) {
         return try {
             val results = MutableLiveData<List<User>>()
             val userList = mutableListOf<User>()
-            firebaseInstance.userColRef.get().await().forEach {
+            val orgCode = preferenceProvider.getStrings("orgCode")
+            firebaseInstance.userColRef.whereEqualTo("orgCode", orgCode).get().await().forEach {
                 if (it.id != getCurrentUser().uid)
                     userList.add(it.toObject())
             }
@@ -81,8 +86,9 @@ class UserRepository(private val firebaseInstance: FirebaseInstance) {
         return try {
             val results = MutableLiveData<List<User>>()
             val userList = mutableListOf<User>()
+            val orgCode = preferenceProvider.getStrings("orgCode")
 
-            firebaseInstance.userColRef
+            firebaseInstance.userColRef.whereEqualTo("orgCode", orgCode)
                 .get().await().forEach {
                     if (it.toObject<User>().groupList.isNullOrEmpty()) {
                         userList.add(it.toObject())

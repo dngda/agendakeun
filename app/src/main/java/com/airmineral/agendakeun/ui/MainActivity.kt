@@ -19,13 +19,14 @@ import com.airmineral.agendakeun.util.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.android.ext.android.inject
 
-class MainActivity() : AppCompatActivity(), Observer<User> {
+class MainActivity : AppCompatActivity(), Observer<User> {
     companion object {
         const val TAG = "MainActivity"
     }
 
     private val userRepository: UserRepository by inject()
     private val firebaseInstance: FirebaseInstance by inject()
+    private val preferenceProvider: PreferenceProvider by inject()
     private var currentNavController: LiveData<NavController>? = null
     private var state = 99
 
@@ -35,8 +36,8 @@ class MainActivity() : AppCompatActivity(), Observer<User> {
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
         }
-        PreferenceProvider(this).saveStrings("UID", userRepository.getCurrentUser().uid)
         subscribeTopic()
+        Log.d("MainAct OrgCode", preferenceProvider.getStrings("orgCode").toString())
     }
 
     override fun onRestoreInstanceState(
@@ -75,17 +76,19 @@ class MainActivity() : AppCompatActivity(), Observer<User> {
     }
 
     override fun onChanged(user: User) {
+        Log.d("USER INFO", user.toString())
+        preferenceProvider.saveStrings("orgCode", user.orgCode)
+        Log.d("SAVED ORG CODE", preferenceProvider.getStrings("orgCode").toString())
         val groupList = mutableListOf<String>()
         if (user.groupList !== null) {
             groupList.addAll(user.groupList!!)
         }
-        Log.d("USER GROUP LIST", user.groupList.toString())
         if (state < groupList.size) Toast.makeText(
             this,
             "Anda telah dimasukkan ke group baru!",
             Toast.LENGTH_LONG
         ).show()
-        PreferenceProvider(this).saveUserGroupList(user.uid!!, groupList)
+        preferenceProvider.saveUserGroupList(user.uid!!, groupList)
         groupList.forEach { group ->
             firebaseInstance.fcmSubscribeToTopic(group)
                 .addOnCompleteListener { task ->

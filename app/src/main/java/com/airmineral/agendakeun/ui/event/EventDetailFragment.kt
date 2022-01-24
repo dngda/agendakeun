@@ -27,6 +27,7 @@ class EventDetailFragment : Fragment() {
     private lateinit var binding: FragmentEventDetailBinding
     private val viewModel: HomeViewModel by viewModel()
     private val userRepository: UserRepository by inject()
+    private val preferenceProvider: PreferenceProvider by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +53,7 @@ class EventDetailFragment : Fragment() {
         viewModel.eventData.value = eventData
 
         viewModel.isSwitchChecked.value =
-            PreferenceProvider(requireContext()).getSwitchState(eventData.eventId!!)
+            preferenceProvider.getSwitchState(eventData.eventId!!)
 
         val descOneHourBefore =
             "Agenda ${eventData.name} untuk ${eventData.groupName} akan dimulai satu jam lagi. Bertempat di ${eventData.place}."
@@ -70,7 +71,7 @@ class EventDetailFragment : Fragment() {
         }
         binding.switchNotification.setOnClickListener {
             if (binding.switchNotification.isChecked) {
-                PreferenceProvider(requireContext()).saveSwitchState(eventData.eventId!!, true)
+                preferenceProvider.saveSwitchState(eventData.eventId!!, true)
                 val myWorkOneHourBefore = OneTimeWorkRequestBuilder<NotificationWorker>()
                     .setInitialDelay(eventNotificationTime, TimeUnit.MILLISECONDS)
                     .addTag(eventData.eventId!!)
@@ -87,7 +88,7 @@ class EventDetailFragment : Fragment() {
                 WorkManager.getInstance(requireContext()).enqueue(myWorkAtEventTime)
                 requireContext().toast("Notification on")
             } else {
-                PreferenceProvider(requireContext()).saveSwitchState(eventData.eventId!!, false)
+                preferenceProvider.saveSwitchState(eventData.eventId!!, false)
                 WorkManager.getInstance(requireContext()).cancelAllWorkByTag(eventData.eventId!!)
                 requireContext().toast("Notification off")
             }

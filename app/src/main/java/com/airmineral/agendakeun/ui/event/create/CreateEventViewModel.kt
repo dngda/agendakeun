@@ -13,6 +13,7 @@ import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.data.model.Event
 import com.airmineral.agendakeun.data.model.Group
 import com.airmineral.agendakeun.data.model.User
+import com.airmineral.agendakeun.data.preferences.PreferenceProvider
 import com.airmineral.agendakeun.data.repositories.EventRepository
 import com.airmineral.agendakeun.data.repositories.GroupRepository
 import com.airmineral.agendakeun.data.repositories.UserRepository
@@ -27,11 +28,13 @@ import java.util.*
 class CreateEventViewModel(
     private val userRepository: UserRepository,
     private val groupRepository: GroupRepository,
-    private val eventRepository: EventRepository
+    private val eventRepository: EventRepository,
+    private val preferenceProvider: PreferenceProvider
 ) : ViewModel() {
 
     private val currentUser = userRepository.getCurrentUser()
     private val currentUserId = currentUser.uid
+    private val orgCode = preferenceProvider.getStrings("orgCode")
     var isFromProfile = false
 
     val allUserList: Deferred<LiveData<List<User>>> by lazyDeferred {
@@ -39,7 +42,7 @@ class CreateEventViewModel(
     }
 
     val allGroupList: Deferred<LiveData<List<Group>>> by lazyDeferred {
-        groupRepository.getAllGroups()!!
+        groupRepository.getAllGroups(preferenceProvider.getStrings("orgCode")!!)!!
     }
 
     var groupName: String? = null
@@ -58,7 +61,7 @@ class CreateEventViewModel(
         }.toMap()
 
         groupRepository.saveGroup(
-            Group(null, groupName, mapSelectedData, currentUserId),
+            Group(null, groupName, mapSelectedData, currentUserId, orgCode),
             selectedUserId
         )
 
