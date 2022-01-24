@@ -9,7 +9,8 @@ data class User(
     var email: String? = null,
     var avatar: String? = null,
     var position: String? = null,
+    var orgCode: String? = null,
     var groupList: List<String>? = null
 ) {
-    constructor() : this(null, null, null, null, null, null)
+    constructor() : this(null, null, null, null, null, null, null)
 }

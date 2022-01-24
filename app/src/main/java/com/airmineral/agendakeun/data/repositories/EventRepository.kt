@@ -1,6 +1,5 @@
 package com.airmineral.agendakeun.data.repositories
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +13,7 @@ import java.util.*
 
 class EventRepository(
     private val firebaseInstance: FirebaseInstance,
-    private val context: Context
+    private val preferenceProvider: PreferenceProvider
 ) {
     companion object {
         const val TAG = "Event Repo"
@@ -38,7 +37,7 @@ class EventRepository(
             val currentUserID = firebaseInstance.auth.currentUser?.uid
             val curDate = Calendar.getInstance().time
             val groupList: List<String> =
-                PreferenceProvider(context).getUserGroupList(currentUserID!!)
+                preferenceProvider.getUserGroupList(currentUserID!!)
             val eventList = mutableListOf<Event>()
             groupList.forEach { groupId ->
                 firebaseInstance.groupEventColRef(groupId)
@@ -61,7 +60,7 @@ class EventRepository(
             val pastEventList = MutableLiveData<List<Event>>()
             val currentUserID = firebaseInstance.auth.currentUser?.uid
             val groupList: List<String> =
-                PreferenceProvider(context).getUserGroupList(currentUserID!!)
+                preferenceProvider.getUserGroupList(currentUserID!!)
             val eventList = mutableListOf<Event>()
             groupList.forEach { groupId ->
                 firebaseInstance.groupEventColRef(groupId)

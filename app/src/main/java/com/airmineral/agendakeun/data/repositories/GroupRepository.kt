@@ -80,13 +80,13 @@ class GroupRepository(private val firebaseInstance: FirebaseInstance) {
         }
     }
 
-    suspend fun getAllGroups(): LiveData<List<Group>>? {
+    suspend fun getAllGroups(orgCode: String): LiveData<List<Group>>? {
         return try {
             val currentUserID = firebaseInstance.auth.currentUser?.uid
             val field = "userList.$currentUserID"
             val res = MutableLiveData<List<Group>>()
             val groupList = mutableListOf<Group>()
-            firebaseInstance.groupColRef.whereEqualTo(field, true)
+            firebaseInstance.groupColRef.whereEqualTo(field, true).whereEqualTo("orgCode", orgCode)
                 .get().await().forEach {
                     groupList.add(it.toObject())
                 }

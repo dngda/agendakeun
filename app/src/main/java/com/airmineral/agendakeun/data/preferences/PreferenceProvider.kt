@@ -5,12 +5,10 @@ import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 
 class PreferenceProvider(
-    context: Context
+    private val context: Context
 ) {
-
-    private val appContext = context.applicationContext
     private val preference: SharedPreferences
-        get() = PreferenceManager.getDefaultSharedPreferences(appContext)
+        get() = PreferenceManager.getDefaultSharedPreferences(context)
 
     fun saveSwitchState(eventId: String, state: Boolean) {
         preference.edit().putBoolean(eventId, state).apply()

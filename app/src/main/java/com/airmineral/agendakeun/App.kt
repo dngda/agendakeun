@@ -2,6 +2,7 @@ package com.airmineral.agendakeun
 
 import android.app.Application
 import com.airmineral.agendakeun.data.FirebaseInstance
+import com.airmineral.agendakeun.data.preferences.PreferenceProvider
 import com.airmineral.agendakeun.data.repositories.EventRepository
 import com.airmineral.agendakeun.data.repositories.GroupRepository
 import com.airmineral.agendakeun.data.repositories.UserRepository
@@ -27,13 +28,14 @@ class App : Application() {
 
             val koinModules = module {
                 single { FirebaseInstance() }
-                single { UserRepository(get()) }
+                single { UserRepository(get(), get()) }
                 single { GroupRepository(get()) }
                 single { EventRepository(get(), get()) }
+                single { PreferenceProvider(get()) }
 
                 viewModel { ProfileViewModel(get(), get()) }
-                viewModel { AuthViewModel(get()) }
-                viewModel { CreateEventViewModel(get(), get(), get()) }
+                viewModel { AuthViewModel(get(), get()) }
+                viewModel { CreateEventViewModel(get(), get(), get(), get()) }
                 viewModel { HomeViewModel(get()) }
                 viewModel { DashboardViewModel(get(), get()) }
                 viewModel { GroupEditorViewModel(get(), get()) }

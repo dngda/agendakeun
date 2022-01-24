@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.airmineral.agendakeun.R
@@ -22,7 +23,6 @@ class SignInActivity : AppCompatActivity() {
     private val mViewModel: AuthViewModel by viewModel()
 
     companion object {
-        const val EXTRA_KEY = "new_sign_uid"
         const val TAG = "SignInActivity"
         const val RC_SIGN_IN = 123
     }
@@ -51,7 +51,8 @@ class SignInActivity : AppCompatActivity() {
 
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+//        startActivityForResult(signInIntent, RC_SIGN_IN)
+        resultLauncher.launch(signInIntent)
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
@@ -81,11 +82,9 @@ class SignInActivity : AppCompatActivity() {
             }
     }
 
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)
@@ -97,7 +96,7 @@ class SignInActivity : AppCompatActivity() {
                 binding.btnWelcomeSignIn.isEnabled = true
             }
         }
-    }
+
 
     private fun showAuthFailed() {
         Snackbar.make(
