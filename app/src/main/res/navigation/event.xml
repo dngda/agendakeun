@@ -75,7 +75,7 @@
     <fragment
         android:id="@+id/editEventFragment"
         android:name="com.airmineral.agendakeun.ui.event.create.EditEventFragment"
-        android:label="EditEventFragment"
+        android:label="Ubah Detail Agenda"
         tools:layout="@layout/fragment_event_editor">
         <action
             android:id="@+id/action_editEventFragment_to_eventFragment"

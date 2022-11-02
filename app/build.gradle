@@ -6,7 +6,19 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
+def localPropertiesFile = rootProject.file("local.properties")
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(localPropertiesFile))
+
 android {
+    signingConfigs {
+        release {
+            storeFile file('D:\\Documents\\1. DANANG\\KULIAH\\Skripsi\\Build\\key_store.jks')
+            storePassword 'agendakeun123'
+            keyAlias 'key0'
+            keyPassword 'agendakeun123'
+        }
+    }
     compileSdkVersion 31
 
     defaultConfig {
@@ -17,6 +29,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "SERVER_KEY", localProperties['serverkey']
     }
 
     buildTypes {

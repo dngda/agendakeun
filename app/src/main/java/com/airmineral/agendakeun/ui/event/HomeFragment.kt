@@ -88,7 +88,7 @@ class HomeFragment : Fragment() {
 
     private fun bindUI() = Coroutines.main {
         try {
-            viewModel.eventList.await().observe(viewLifecycleOwner, {
+            viewModel.eventList.await().observe(viewLifecycleOwner) {
                 initRecyclerView(it.toEventItem())
                 Log.d(TAG, it.toString())
 
@@ -98,9 +98,9 @@ class HomeFragment : Fragment() {
                     setViewInvisible()
                 }
 
-            })
+            }
         } catch (e: Exception) {
-            Log.d(TAG, e.message!!)
+            Log.d(TAG, e.stackTraceToString())
         }
     }
 
