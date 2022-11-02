@@ -7,6 +7,7 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.airmineral.agendakeun.BuildConfig
 import com.airmineral.agendakeun.R
 import com.airmineral.agendakeun.databinding.ActivitySignInBinding
 import com.airmineral.agendakeun.ui.MainActivity
@@ -24,7 +25,6 @@ class SignInActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "SignInActivity"
-        const val RC_SIGN_IN = 123
     }
 
     private lateinit var binding: ActivitySignInBinding
@@ -51,7 +51,6 @@ class SignInActivity : AppCompatActivity() {
 
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
-//        startActivityForResult(signInIntent, RC_SIGN_IN)
         resultLauncher.launch(signInIntent)
     }
 
@@ -75,7 +74,7 @@ class SignInActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    showAuthFailed()
+                    showAuthFailed(task.exception)
 
                 }
                 binding.welcomeProgressBar.visibility = View.INVISIBLE
@@ -92,17 +91,17 @@ class SignInActivity : AppCompatActivity() {
             } catch (e: ApiException) {
                 // Google Sign In failed
                 Log.w(TAG, "Google sign in failed", e)
-                showAuthFailed()
+                showAuthFailed(e)
                 binding.btnWelcomeSignIn.isEnabled = true
             }
         }
 
 
-    private fun showAuthFailed() {
+    private fun showAuthFailed(msg: Exception?) {
         Snackbar.make(
             binding.rootSignIn,
-            "Authentication Failed.",
-            Snackbar.LENGTH_SHORT
+            if (BuildConfig.DEBUG) msg.toString() else "Authentication Failed.",
+            Snackbar.LENGTH_LONG
         )
             .show()
     }
